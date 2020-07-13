@@ -18,7 +18,7 @@ public class Constants {
     /**
      * Other (healthy) people get infected within this radius.
      */
-    public static final float INFECTION_RADIUS = 0.3f;
+    public static final float INFECTION_RADIUS = 2.5f;
 
     /***
      * A person is sick for that many time steps.
@@ -33,7 +33,7 @@ public class Constants {
     /**
      * Number of persons in the simulation.
      */
-    public static final int NUMBER_OF_PERSONS = 10000;
+    public static final int NUMBER_OF_PERSONS = 200;
 
     /**
      * Radius of the circle for the persons.

@@ -1,4 +1,4 @@
-# Readme zur Vorgabe PM2
+# Readme zur Vorgabe AD
 
 ## Einrichten
 
