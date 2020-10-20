@@ -1,11 +1,12 @@
 plugins {
     id 'application'
+    id 'eclipse'
     // Die folgenden beiden Plugins werden für die Integration von JavaFX benötigt
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'org.beryx.jlink' version '2.12.0'
 }
 
-mainClassName = 'praktikum.aufgabe1.SimulationApplication'
+mainClassName = "$moduleName/praktikum.aufgabe1.SimulationApplication"
 
 repositories {
     mavenCentral()
@@ -13,7 +14,7 @@ repositories {
 
 // Konfiguration von JavaFX
 javafx {
-    version = "13"
+    version = "14"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
@@ -29,10 +30,22 @@ dependencies {
     implementation 'org.junit.platform:junit-platform-launcher:1.5.1'
 }
 
+eclipse {
+    classpath {
+        file {
+            whenMerged {
+                entries.findAll { it.properties.kind.equals('lib') }.each {
+                    it.entryAttributes['module'] = 'true'
+                }
+            }
+        }
+    }
+}
+
 // Wird zum Starten von JavaFX-Anwendungen benötigt
 jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
-        name = 'hawhamburg'
+        name = 'adpraktikum'
     }
 }
