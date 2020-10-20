@@ -2,16 +2,35 @@
 
 ## Einrichten
 
-### Projekt importieren
+### IntelliJ
+
+#### Importieren
 
 IntelliJ -> Import -> Gradle
 
-### Build, Ausführen und Testen über IntelliJ
+#### Build, Ausführen und Testen über IntelliJ
 
 IntelliJ -> Preferences -> Build/Execution/Deployment -> Build Tools -> Gradle
 
 * Build and run using: IntelliJ (nicht Gradle)
 * Run tests using: IntelliJ (nicht Gradle)
+
+### Eclipse
+
+#### Importieren
+
+* Eclipse -> Import projects -> Gradle/Existing Gradle project
+* in das Projektverzeichnis wechseln
+* auf der Konsole
+
+        gradle eclipse
+
+* zurück in Eclipse: Refresh project
+
+#### Ausführen
+
+* rechte Maustaste auf Anwendungsklasse
+* Run as -> Java Application
 
 ## Java Modularisierung
 
