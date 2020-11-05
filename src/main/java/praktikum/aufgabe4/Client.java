@@ -1,7 +1,7 @@
 package praktikum.aufgabe4;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.function.UnaryOperator;
 
 /**
@@ -9,15 +9,15 @@ import java.util.function.UnaryOperator;
  */
 public class Client extends SocketWidget {
 
-    private final String hostname;
+  private final String hostname;
 
-    public Client(int port, String hostname, UnaryOperator<String> encode, UnaryOperator<String> decode) {
-        super(port, "Client", encode, decode);
-        this.hostname = hostname;
-    }
+  public Client(int port, String hostname, UnaryOperator<String> encode, UnaryOperator<String> decode) {
+    super(port, "Client", encode, decode);
+    this.hostname = hostname;
+  }
 
-    @Override
-    public Socket getSocket() throws IOException {
-        return new Socket(hostname, port);
-    }
+  @Override
+  public Socket getSocket() throws IOException {
+    return new Socket(hostname, port);
+  }
 }

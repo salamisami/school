@@ -13,34 +13,34 @@ import java.util.Set;
  */
 public abstract class Observable {
 
-    /**
-     * Set of observers.
-     */
-    private Set<Observer> observer;
+  /**
+   * Set of observers.
+   */
+  private Set<Observer> observer;
 
-    public Observable() {
-        observer = new HashSet<>();
-    }
+  public Observable() {
+    observer = new HashSet<>();
+  }
 
-    /**
-     * Register additional observer.
-     */
-    public void addObserver(Observer observer) {
-        this.observer.add(observer);
-    }
+  /**
+   * Register additional observer.
+   */
+  public void addObserver(Observer observer) {
+    this.observer.add(observer);
+  }
 
-    /**
-     * Inform all registered observers that somethings has changed. Provide information about the change.
-     */
-    public void notifyObservers(Object payload) {
-        observer.forEach(b -> b.update(payload));
-    }
+  /**
+   * Inform all registered observers that somethings has changed. Provide information about the change.
+   */
+  public void notifyObservers(Object payload) {
+    observer.forEach(b -> b.update(payload));
+  }
 
-    /**
-     * Inform all registered observers that somethings has changed.
-     */
-    public void notifyObservers() {
-        notifyObservers(null);
-    }
+  /**
+   * Inform all registered observers that somethings has changed.
+   */
+  public void notifyObservers() {
+    notifyObservers(null);
+  }
 
 }

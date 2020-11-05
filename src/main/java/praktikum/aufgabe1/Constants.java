@@ -10,33 +10,33 @@ package praktikum.aufgabe1;
  */
 public class Constants {
 
-    /**
-     * Move distance in each time step.
-     */
-    public static final int MOVE_DISTANCE = 5;
+  /**
+   * Move distance in each time step.
+   */
+  public static final int MOVE_DISTANCE = 5;
 
-    /**
-     * Other (healthy) people get infected within this radius.
-     */
-    public static final float INFECTION_RADIUS = 2.5f;
+  /**
+   * Other (healthy) people get infected within this radius.
+   */
+  public static final float INFECTION_RADIUS = 2.5f;
 
-    /***
-     * A person is sick for that many time steps.
-     */
-    public static final int SICKNESS_TIME = 100;
+  /***
+   * A person is sick for that many time steps.
+   */
+  public static final int SICKNESS_TIME = 100;
 
-    /**
-     * Initial percentage of sick persons.
-     */
-    public static final double INITIAL_FRACTION_SICK = 0.1;
+  /**
+   * Initial percentage of sick persons.
+   */
+  public static final double INITIAL_FRACTION_SICK = 0.1;
 
-    /**
-     * Number of persons in the simulation.
-     */
-    public static final int NUMBER_OF_PERSONS = 200;
+  /**
+   * Number of persons in the simulation.
+   */
+  public static final int NUMBER_OF_PERSONS = 200;
 
-    /**
-     * Radius of the circle for the persons.
-     */
-    public static final int RENDER_PERSON_CIRCLE_RADIUS = 6;
+  /**
+   * Radius of the circle for the persons.
+   */
+  public static final int RENDER_PERSON_CIRCLE_RADIUS = 6;
 }

@@ -11,47 +11,47 @@ import java.util.function.UnaryOperator;
  */
 public class ClientServerApplication extends Application {
 
-    /**
-     * Reference to the client.
-     */
-    protected Client client;
+  /**
+   * Reference to the client.
+   */
+  protected Client client;
 
-    /**
-     * Reference to the server
-     */
-    protected Server server;
+  /**
+   * Reference to the server
+   */
+  protected Server server;
 
-    public ClientServerApplication() {
-        int port = 1234;
-        String hostname = "localhost";
+  public ClientServerApplication() {
+    int port = 1234;
+    String hostname = "localhost";
 
-        // These operations need to be replaced by the RSA encoding/decoding
-        UnaryOperator<String> clientEncode = x -> x;
-        UnaryOperator<String> clientDecode = x -> x;
-        UnaryOperator<String> serverEncode = x -> x;
-        UnaryOperator<String> serverDecode = x -> x;
+    // These operations need to be replaced by the RSA encoding/decoding
+    UnaryOperator<String> clientEncode = x -> x;
+    UnaryOperator<String> clientDecode = x -> x;
+    UnaryOperator<String> serverEncode = x -> x;
+    UnaryOperator<String> serverDecode = x -> x;
 
-        client = new Client(port, hostname, clientEncode, clientDecode);
-        server = new Server(port, serverEncode, serverDecode);
-    }
+    client = new Client(port, hostname, clientEncode, clientDecode);
+    server = new Server(port, serverEncode, serverDecode);
+  }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setScene(new Scene(client.makeSceneGraph(), 400, 300));
-        primaryStage.setTitle("Client");
-        primaryStage.setX(550);
-        primaryStage.setY(100);
-        primaryStage.show();
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    primaryStage.setScene(new Scene(client.makeSceneGraph(), 400, 300));
+    primaryStage.setTitle("Client");
+    primaryStage.setX(550);
+    primaryStage.setY(100);
+    primaryStage.show();
 
-        Stage serverStage = new Stage();
-        serverStage.setScene(new Scene(server.makeSceneGraph(), 400, 300));
-        serverStage.setTitle("Server");
-        serverStage.show();
-        serverStage.setX(100);
-        serverStage.setY(100);
-    }
+    Stage serverStage = new Stage();
+    serverStage.setScene(new Scene(server.makeSceneGraph(), 400, 300));
+    serverStage.setTitle("Server");
+    serverStage.show();
+    serverStage.setX(100);
+    serverStage.setY(100);
+  }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
 }
