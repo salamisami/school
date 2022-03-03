@@ -14,6 +14,7 @@ import praktikum.aufgabe3.map.Cell;
 import praktikum.aufgabe3.map.Character;
 import praktikum.aufgabe3.map.Map;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;

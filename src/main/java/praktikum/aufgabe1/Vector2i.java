@@ -34,14 +34,6 @@ public class Vector2i {
   }
 
   /**
-   * Set the coordinates.
-   */
-  public void set(Vector2i p) {
-    this.x = p.x;
-    this.y = p.y;
-  }
-
-  /**
    * Euklidian distance between this and other vector.
    */
   public float distanceTo(Vector2i p) {
@@ -64,5 +56,13 @@ public class Vector2i {
 
   public void setY(int y) {
     this.y = y;
+  }
+
+  /**
+   * Set the coordinates.
+   */
+  public void set(Vector2i p) {
+    this.x = p.x;
+    this.y = p.y;
   }
 }

@@ -49,6 +49,12 @@ public class ClientServerApplication extends Application {
     serverStage.show();
     serverStage.setX(100);
     serverStage.setY(100);
+
+    primaryStage.setOnCloseRequest(event -> {
+      System.out.println("Automatically disconnected client and server.");
+      client.disconnect();
+      server.disconnect();
+    });
   }
 
   public static void main(String[] args) {
