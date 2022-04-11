@@ -111,15 +111,13 @@ public class Person {
    * @throws Exception When angle is greater than 360 or negative
    */
   private Vector2i angleToDirVector () throws Exception {
-    if (this.angle < 0){
-      throw new Exception("Ungültiger Winkel");
-    }
     return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
             (int) (Constants.COMMA_FACTOR * Math.sin(this.angle)));
     }
 
   /**
-   * If the person is infected and the person
+   * If the person is infected and the neighbour is not immune, the neighbour gets sick.
+   * @param neighbour the person who is going to be infected if it's healthy.
    */
   public void infect (Person neighbour){
     if (this.healthState == HealthState.SICK && neighbour.healthState == HealthState.HEALTHY){

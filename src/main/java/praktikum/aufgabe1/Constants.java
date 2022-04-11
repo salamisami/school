@@ -18,7 +18,7 @@ public class Constants {
   /**
    * Other (healthy) people get infected within this radius.
    */
-  public static final float INFECTION_RADIUS = 5f;
+  public static final float INFECTION_RADIUS = 2.5f;
 
   /***
    * A person is sick for that many time steps.
@@ -40,7 +40,7 @@ public class Constants {
    */
   public static final int RENDER_PERSON_CIRCLE_RADIUS = 6;
   /**
-   * Factor for multiplying doubles to preserve decimal points
+   * Temporary factor for multiplying doubles to preserve decimal points.
    */
   public static final int COMMA_FACTOR = 10000;
 }
