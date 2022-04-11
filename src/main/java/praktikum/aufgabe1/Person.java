@@ -69,9 +69,22 @@ public class Person {
    */
   private void movement (Vector2i simulationArea){
     int currentXPos = this.pos.getX();
-    if ();
+    int currentYPos = this.pos.getY();
+    if (currentYPos >= simulationArea.getY() ||currentXPos >= simulationArea.getX() ||
+            currentYPos <= 0 ||currentXPos <= 0 ){
+      this.angle += 180;
+      if (angle > 360){
+        angle = angle % 360;
+      }
+    }
   }
-private Vector2i angleToDirVector () throws Exception {
+
+  /**
+   * A helper function for converting angles into vectors.
+   * @return Vector2i
+   * @throws Exception
+   */
+  private Vector2i angleToDirVector () throws Exception {
     if (this.angle > 360 || this.angle < 0){
       throw new Exception("Ungültiger Winkel");
     }
