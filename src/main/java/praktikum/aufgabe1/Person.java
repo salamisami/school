@@ -66,8 +66,9 @@ public class Person {
    * If the person reaches an edge of the room, he does a 180° turn and moves toward that direction.
    * @param simulationArea
    * @return void
+   * @throws Exception
    */
-  private void movement (Vector2i simulationArea){
+  private void movement (Vector2i simulationArea) throws Exception {
     int currentXPos = this.pos.getX();
     int currentYPos = this.pos.getY();
     if (currentYPos >= simulationArea.getY() ||currentXPos >= simulationArea.getX() ||
@@ -77,10 +78,28 @@ public class Person {
         angle = angle % 360;
       }
     }
+    Vector2i dirVector = angleToDirVector();
+    dirVector.setX(dirVector.getX()*Constants.MOVE_DISTANCE);
+    dirVector.setY(dirVector.getY()*Constants.MOVE_DISTANCE);
+    this.pos.setX(currentXPos+dirVector.getX());
+    this.pos.setY(currentYPos+dirVector.getY());
+    if (this.pos.getX() > simulationArea.getX()){
+      this.pos.setX(simulationArea.getX());
+    }
+    else if(this.pos.getX() < 0){
+      this.pos.setX(0);
+    }
+    if (this.pos.getY() > simulationArea.getY()){
+      this.pos.setY(simulationArea.getY());
+    }
+    else if (this.pos.getY() < 0){
+      this.pos.setY(0);
+    }
   }
 
   /**
    * A helper function for converting angles into vectors.
+   * Throws an exception if the current angle is negative or greater than 360.
    * @return Vector2i
    * @throws Exception
    */
