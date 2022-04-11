@@ -39,4 +39,8 @@ public class Constants {
    * Radius of the circle for the persons.
    */
   public static final int RENDER_PERSON_CIRCLE_RADIUS = 6;
+  /**
+   * Factor for multiplying doubles to preserve decimal points
+   */
+  public static final int COMMA_FACTOR = 1000;
 }

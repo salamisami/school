@@ -56,33 +56,38 @@ public class Person {
       timeSinceBecomingSick = 0;
       healthState = HealthState.IMMUNE;
     }
-
-    // TODO: simulate movement
+    try {
+      movement(simulationArea);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
    * A simulation step for the movement of the person.
    * This slightly changes the direction the person is moving for each step.
    * If the person reaches an edge of the room, he does a 180° turn and moves toward that direction.
-   * @param simulationArea
-   * @return void
-   * @throws Exception
+   * @param simulationArea The room as a Vector2i where the person is currently in
    */
-  private void movement (Vector2i simulationArea) throws Exception {
+  private void movement (Vector2i simulationArea){
     int currentXPos = this.pos.getX();
     int currentYPos = this.pos.getY();
-    if (currentYPos >= simulationArea.getY() ||currentXPos >= simulationArea.getX() ||
+    if (currentYPos >= simulationArea.getY() || currentXPos >= simulationArea.getX() ||
             currentYPos <= 0 ||currentXPos <= 0 ){
       this.angle += 180;
       if (angle > 360){
         angle = angle % 360;
       }
     }
-    Vector2i dirVector = angleToDirVector();
-    dirVector.setX(dirVector.getX()*Constants.MOVE_DISTANCE);
-    dirVector.setY(dirVector.getY()*Constants.MOVE_DISTANCE);
-    this.pos.setX(currentXPos+dirVector.getX());
-    this.pos.setY(currentYPos+dirVector.getY());
+    try {
+      Vector2i dirVector = angleToDirVector();
+      dirVector.setX((dirVector.getX() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
+      dirVector.setY((dirVector.getY() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
+      this.pos.setX(currentXPos+dirVector.getX());
+      this.pos.setY(currentYPos+dirVector.getY());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     if (this.pos.getX() > simulationArea.getX()){
       this.pos.setX(simulationArea.getX());
     }
@@ -101,14 +106,14 @@ public class Person {
    * A helper function for converting angles into vectors.
    * Throws an exception if the current angle is negative or greater than 360.
    * @return Vector2i
-   * @throws Exception
+   * @throws Exception When angle is greater than 360 or negative
    */
   private Vector2i angleToDirVector () throws Exception {
     if (this.angle > 360 || this.angle < 0){
       throw new Exception("Ungültiger Winkel");
     }
-    Vector2i dirVector = new Vector2i((int) Math.cos(this.angle), (int) Math.sin(this.angle));
-    return dirVector;
+    return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
+            (int) (Constants.COMMA_FACTOR * Math.sin(this.angle)));
     }
 
   /// GETTER/SETTER
