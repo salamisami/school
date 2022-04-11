@@ -75,14 +75,12 @@ public class Person {
     if (currentYPos >= simulationArea.getY() || currentXPos >= simulationArea.getX() ||
             currentYPos <= 0 ||currentXPos <= 0 ){
       this.angle += 180;
+      //Just to be sure my angle never reaches max int.
       if (this.angle > 360){
         this.angle = this.angle % 360;
       }
     }
     this.angle += (int) (Math.random() * 90);
-    if (angle > 360){
-      angle = angle % 360;
-    }
     try {
       Vector2i dirVector = angleToDirVector();
       dirVector.setX((dirVector.getX() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
@@ -113,13 +111,21 @@ public class Person {
    * @throws Exception When angle is greater than 360 or negative
    */
   private Vector2i angleToDirVector () throws Exception {
-    if (this.angle > 360 || this.angle < 0){
+    if (this.angle < 0){
       throw new Exception("Ungültiger Winkel");
     }
     return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
             (int) (Constants.COMMA_FACTOR * Math.sin(this.angle)));
     }
 
+  /**
+   * If the person is infected and the person
+   */
+  public void infect (Person neighbour){
+    if (this.healthState == HealthState.SICK && neighbour.healthState == HealthState.HEALTHY){
+      neighbour.healthState = HealthState.SICK;
+    }
+}
   /// GETTER/SETTER
 
   public Vector2i getPos() {

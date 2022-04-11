@@ -18,7 +18,7 @@ public class Constants {
   /**
    * Other (healthy) people get infected within this radius.
    */
-  public static final float INFECTION_RADIUS = 2.5f;
+  public static final float INFECTION_RADIUS = 5f;
 
   /***
    * A person is sick for that many time steps.

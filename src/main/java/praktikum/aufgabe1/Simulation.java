@@ -22,7 +22,7 @@ public class Simulation extends Observable implements Runnable {
   protected List<Person> persons;
 
   /**
-   * Width an height of the simulation area
+   * Width and height of the simulation area
    */
   protected Vector2i simulationArea;
 
@@ -102,6 +102,16 @@ public class Simulation extends Observable implements Runnable {
     // Move
     for (Iterator<Person> it = personIterator(); it.hasNext(); ) {
       Person person = it.next();
+      for (Iterator<Person> is = personIterator(); is.hasNext(); ){
+        Person neighbour = is.next();
+        if (neighbour == person){
+          continue;
+        }
+        float distToNeigh = person.pos.distanceTo(neighbour.pos);
+        if (!(distToNeigh > Constants.INFECTION_RADIUS)){
+          person.infect(neighbour);
+        }
+      }
       person.simulate(simulationArea);
     }
   }
