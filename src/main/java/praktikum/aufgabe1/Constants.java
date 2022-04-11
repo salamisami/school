@@ -42,5 +42,5 @@ public class Constants {
   /**
    * Factor for multiplying doubles to preserve decimal points
    */
-  public static final int COMMA_FACTOR = 1000;
+  public static final int COMMA_FACTOR = 10000;
 }

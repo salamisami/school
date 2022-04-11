@@ -75,9 +75,13 @@ public class Person {
     if (currentYPos >= simulationArea.getY() || currentXPos >= simulationArea.getX() ||
             currentYPos <= 0 ||currentXPos <= 0 ){
       this.angle += 180;
-      if (angle > 360){
-        angle = angle % 360;
+      if (this.angle > 360){
+        this.angle = this.angle % 360;
       }
+    }
+    this.angle += (int) (Math.random() * 90);
+    if (angle > 360){
+      angle = angle % 360;
     }
     try {
       Vector2i dirVector = angleToDirVector();
