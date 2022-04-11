@@ -18,7 +18,10 @@ public class Person {
    * Current position.
    */
   protected Vector2i pos;
-
+  /**
+   * Current direction the person is moving towards.
+   */
+  protected int angle;
   /**
    * Health state of the person.
    */
@@ -37,6 +40,8 @@ public class Person {
     } else {
       timeSinceBecomingSick = 0;
     }
+    //Direction of the person initialized as a random variable-
+    this.angle = (int)(Math.random()*360);
   }
 
   /**
@@ -54,6 +59,25 @@ public class Person {
 
     // TODO: simulate movement
   }
+
+  /**
+   * A simulation step for the movement of the person.
+   * This slightly changes the direction the person is moving for each step.
+   * If the person reaches an edge of the room, he does a 180° turn and moves toward that direction.
+   * @param simulationArea
+   * @return void
+   */
+  private void movement (Vector2i simulationArea){
+    int currentXPos = this.pos.getX();
+    if ();
+  }
+private Vector2i angleToDirVector () throws Exception {
+    if (this.angle > 360 || this.angle < 0){
+      throw new Exception("Ungültiger Winkel");
+    }
+    Vector2i dirVector = new Vector2i((int) Math.cos(this.angle), (int) Math.sin(this.angle));
+    return dirVector;
+    }
 
   /// GETTER/SETTER
 

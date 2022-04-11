@@ -22,7 +22,7 @@ public class Simulation extends Observable implements Runnable {
   protected List<Person> persons;
 
   /**
-   * Width an height of the simulation area
+   * Width and height of the simulation area
    */
   protected Vector2i simulationArea;
 
