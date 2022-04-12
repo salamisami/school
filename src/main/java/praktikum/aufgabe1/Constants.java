@@ -33,7 +33,7 @@ public class Constants {
   /**
    * Number of persons in the simulation.
    */
-  public static final int NUMBER_OF_PERSONS = 200;
+  public static final int NUMBER_OF_PERSONS = 300;
 
   /**
    * Radius of the circle for the persons.
