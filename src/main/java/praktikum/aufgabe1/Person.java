@@ -80,6 +80,7 @@ public class Person {
         this.angle = this.angle % 360;
       }
     }
+    //A person is only able to turn by a maximum of 90° each step.
     this.angle += (int) (Math.random() * 90);
     try {
       Vector2i dirVector = angleToDirVector();
