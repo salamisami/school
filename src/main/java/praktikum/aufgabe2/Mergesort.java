@@ -5,32 +5,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Mergesort<T> {
-    private Comparator comparator;
-    public Mergesort(Comparator <T> comparator){
-        this.comparator = comparator;
-    }
-    <T> LinkedList<T> mergeSort(List<T> list){
+    <T> List<T> mergeSort(List<T> list, Comparator comparator){
+        int maxLength = list.size() ;
+        if (maxLength<2){
+            return list;
+        }
         LinkedList<T> left = new LinkedList<>();
         LinkedList<T> right = new LinkedList<>();
-        int maxLength = list.size() - 1;
+        int midIndex = maxLength/2;
         //TODO: Check for even/uneven
-        for (int i = 0; i<maxLength/2; i++){
+        for (int i = 0; i<midIndex; i++){
             left.add(list.get(i));
         }
-        for (int i=maxLength/2; i<maxLength+1; i++){
+        for (int i=midIndex; i<maxLength; i++){
             right.add(list.get(i));
         }
 
-        left = mergeSort(left);
-        right = mergeSort(right);
-        return merge(left, right);
+        left = (LinkedList<T>) mergeSort(left, comparator);
+        right = (LinkedList<T>) mergeSort(right, comparator);
+        return merge(left, right, comparator);
     }
 
-    private <T> LinkedList<T> merge(LinkedList<T> left, LinkedList<T> right) {
+    private <T> LinkedList<T> merge(List<T> left, List<T> right, Comparator comparator) {
         LinkedList<T> result = new LinkedList<>();
 
-        int leftLength = left.size() - 1;
-        int rightLength = right.size() - 1;
+        int leftLength = left.size();
+        int rightLength = right.size();
         int il = 0;
         for (int i = 0; i<leftLength+rightLength+1; i++){
             if (il > leftLength){
