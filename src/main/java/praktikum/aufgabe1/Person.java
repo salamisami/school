@@ -76,12 +76,10 @@ public class Person {
             currentYPos <= 0 ||currentXPos <= 0 ){
       this.angle += 180;
       //Just to be sure my angle never reaches max int.
-      if (this.angle > 360){
         this.angle = this.angle % 360;
-      }
     }
     //A person is only able to turn by a maximum of 90° each step.
-    this.angle += (int) (Math.random() * 90);
+    this.angle += (int) (Math.random() * 90) - Constants.NEGATIVE_ANGLE;
     try {
       Vector2i dirVector = angleToDirVector();
       dirVector.setX((dirVector.getX() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
@@ -112,8 +110,9 @@ public class Person {
    * @throws Exception When angle is greater than 360 or negative
    */
   private Vector2i angleToDirVector () throws Exception {
-    return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
-            (int) (Constants.COMMA_FACTOR * Math.sin(this.angle)));
+
+    return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(Math.toRadians(this.angle))),
+            (int) (Constants.COMMA_FACTOR * Math.sin(Math.toRadians(this.angle))));
     }
 
   /**

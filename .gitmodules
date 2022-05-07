@@ -1,0 +1,3 @@
+[submodule "ADP Source/ad_vorgabe"]
+	path = ADP Source/ad_vorgabe
+	url = https://git.haw-hamburg.de/vorgaben/ad_vorgabe
