@@ -1,10 +1,30 @@
 package praktikum.aufgabe2;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Mergesort<T> {
+
+    public static void main(String[] args){
+        Mergesort myMerge = new Mergesort<Integer>();
+        ArrayList<Integer> sortMe = myMerge.randomArrayList(Constants.SIZE_OF_TO_SORT);
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        };
+        myMerge.mergeSort(sortMe, comparator);
+    }
+    private ArrayList<Integer> randomArrayList (int size){
+        Random rd = new Random();
+
+    ArrayList<Integer> arr = new ArrayList<Integer>();
+      for (int i = 0; i < size; i++) {
+        arr.add(rd.nextInt()); // storing random integers in an array
+    }
+      return  arr;
+}
     <T> List<T> mergeSort(List<T> list, Comparator comparator){
         int maxLength = list.size() ;
         if (maxLength<2){
@@ -31,24 +51,31 @@ public class Mergesort<T> {
 
         int leftLength = left.size();
         int rightLength = right.size();
-        int il = 0;
-        for (int i = 0; i<leftLength+rightLength+1; i++){
-            if (il > leftLength){
-                result.add(right.get(i-il));
+        int counterLeft = 0;
+        int counterRight = 0;
+        int leftNumbersOver = leftLength - counterLeft; //Wie viele sind unsortiert?
+        int rightNumbersOver = rightLength - counterRight;
+        while (leftNumbersOver > 0 || rightNumbersOver > 0){
+            leftNumbersOver = leftLength - counterLeft; //Wie viele sind unsortiert?
+            rightNumbersOver = rightLength - counterRight;
+            if (leftNumbersOver < 1){
+                result.add(right.get(counterRight));
+                counterRight++;
                 continue;
             }
-            if (il < i-rightLength){
-                result.add(left.get(il));
-                il++;
+            if (rightNumbersOver < 1){
+                result.add(left.get(counterLeft));
+                counterLeft++;
                 continue;
             }
-            int compareResult = comparator.compare(left.get(il), right.get(i-il));
+            int compareResult = comparator.compare(left.get(counterLeft), right.get(counterRight));
             if( compareResult <= 0  ){
-                result.add(left.get(il));
-                il++;
+                result.add(left.get(counterLeft));
+                counterLeft++;
             }
             else {
-                result.add(right.get(i-il));
+                result.add(right.get(counterRight));
+                counterRight++;
             }
         }
         return result;
