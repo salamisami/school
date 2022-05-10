@@ -7,3 +7,5 @@ build/
 *.dylib
 loesung
 javadocOutput/
+ADP_Source/
+bin/
