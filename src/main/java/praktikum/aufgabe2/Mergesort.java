@@ -98,5 +98,10 @@ public class Mergesort<T> {
         }
         return result;
     }
+    void swap (List <T> list, int i, int j){
+        T temp = list.get(i);
+        list.add(i, list.get(j));
+        list.add(j, temp);
+    }
 }
-// TODO: 11/05/2022 Add swap operation for insitu refactoring. 
+// TODO: 11/05/2022 Add swap operation for insitu refactoring.
