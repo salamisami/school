@@ -22,7 +22,7 @@ public class Mergesort<T> {
             }
         }
         System.out.println("");
-        List<Integer> result = myMerge.mergeSort(sortMe, comparator);
+        List<Integer> result = myMerge.mergeSort(sortMe, comparator, 0, sortMe.size());
         System.out.println("The sorted list:");
         for (int i = 0; i < result.size(); i++) {
             System.out.print(String.format("%d. %d; ", i+1, result.get(i)));
@@ -41,67 +41,57 @@ public class Mergesort<T> {
     }
       return  arr;
 }
-    <T> List<T> mergeSort(List<T> list, Comparator comparator){
-        int maxLength = list.size() ;
-        if (maxLength<2){
+    public void mergeSort(List<T> list, Comparator comparator,int listMinIndex, int listMaxIndex){
+        if (listMaxIndex<2){
             return list;
         }
         //TODO: Insitu implementieren. !! Über indexe arbeite
-        LinkedList<T> left = new LinkedList<>();
-        LinkedList<T> right = new LinkedList<>();
-        int midIndex = maxLength/2;
-        for (int i = 0; i<midIndex; i++){
-            left.add(list.get(i));
-        }
-        for (int i=midIndex; i<maxLength; i++){
-            right.add(list.get(i));
-        }
+        //LinkedList<T> left = new LinkedList<>();
+       // LinkedList<T> right = new LinkedList<>();
 
-        left = (LinkedList<T>) mergeSort(left, comparator);
-        right = (LinkedList<T>) mergeSort(right, comparator);
+        mergeSort(list, comparator, listMinIndex, listMaxIndex/2);
+        mergeSort(list, comparator,listMaxIndex/2+1,listMaxIndex);
         return merge(left, right, comparator);
     }
 
-    private <T> LinkedList<T> merge(List<T> left, List<T> right, Comparator comparator) {
-        LinkedList<T> result = new LinkedList<>();
 
-        int leftLength = left.size();
-        int rightLength = right.size();
+    private <T> LinkedList<T> merge(int leftMin,int leftMax, int rightMin,int rightMax, Comparator comparator) {
         int counterLeft = 0;
         int counterRight = 0;
-        int leftNumbersOver = leftLength - counterLeft; //Wie viele sind unsortiert?
-        int rightNumbersOver = rightLength - counterRight;
+        int leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
+        int rightNumbersOver = rightMax - counterRight;
         while (leftNumbersOver > 0 || rightNumbersOver > 0){
             if (leftNumbersOver < 1){// TODO: Schöner lösen, counters vereinfachen.
-                result.add(right.get(counterRight));
+                swapR.add(listR.get(counterRight));
                 counterRight++;//Wie viele sind unsortiert?
-                rightNumbersOver = rightLength - counterRight;
+                rightNumbersOver = rightMax - counterRight;
                 continue;
             }
             if (rightNumbersOver < 1){
-                result.add(left.get(counterLeft));
+                swapR.add(list.get(counterLeft));
                 counterLeft++;
-                leftNumbersOver = leftLength - counterLeft; //Wie viele sind unsortiert?
+
+                leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
                 continue;
             }
-            int compareResult = comparator.compare(left.get(counterLeft), right.get(counterRight));
+            int compareResult = comparator.compare(list.get(counterLeft), listR.get(counterRight));
             if( compareResult <= 0  ){
-                result.add(left.get(counterLeft));
+                swapR.add(list.get(counterLeft));
                 counterLeft++;
             }
             else {
-                result.add(right.get(counterRight));
+                swapR.add(listR.get(counterRight));
                 counterRight++;
             }
-            leftNumbersOver = leftLength - counterLeft; //Wie viele sind unsortiert?
-            rightNumbersOver = rightLength - counterRight;
+            leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
+            rightNumbersOver = rightMax - counterRight;
         }
-        return result;
+        return swapR;
     }
     void swap (List <T> list, int i, int j){
         T temp = list.get(i);
         list.add(i, list.get(j));
         list.add(j, temp);
     }
+
 }
-// TODO: 11/05/2022 Add swap operation for insitu refactoring.
