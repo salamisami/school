@@ -46,11 +46,10 @@ public class Mergesort<T> {
         if (maxLength<2){
             return list;
         }
-        //TODO: Insitu implementieren.
+        //TODO: Insitu implementieren. !! Über indexe arbeite
         LinkedList<T> left = new LinkedList<>();
         LinkedList<T> right = new LinkedList<>();
         int midIndex = maxLength/2;
-        //TODO: Check for even/uneven
         for (int i = 0; i<midIndex; i++){
             left.add(list.get(i));
         }
@@ -100,3 +99,4 @@ public class Mergesort<T> {
         return result;
     }
 }
+// TODO: 11/05/2022 Add swap operation for insitu refactoring. 
