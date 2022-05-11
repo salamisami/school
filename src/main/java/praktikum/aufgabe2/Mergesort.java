@@ -1,7 +1,4 @@
 package praktikum.aufgabe2;
-
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 import static praktikum.aufgabe2.Constants.SIZE_OF_TO_SORT;
