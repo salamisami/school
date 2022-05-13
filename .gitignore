@@ -8,3 +8,6 @@ build/
 loesung
 javadocOutput/
 ADP_Source/
+bin/
+/submoduletest
+

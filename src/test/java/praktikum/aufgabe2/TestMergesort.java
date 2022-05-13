@@ -17,9 +17,9 @@ public class TestMergesort {
             myList.add((int) (Math.random()*100));
         }
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
-        LinkedList<Integer> sortedList = (LinkedList<Integer>) mergesort.mergeSort(myList, comparator);
+        mergesort.mergeSort(myList, comparator, 0, myList.size());
         for (int i=0; i<10-1;i++){
-            assertTrue(sortedList.get(i)<= sortedList.get(i+1));
+            assertTrue(myList.get(i)<= myList.get(i+1));
         }
     }
 }
