@@ -42,6 +42,7 @@ public class Mergesort<T> {
 }
     public void setup (List <T> toSort, Comparator<T> comparator){
         tau = new int[toSort.size()];
+        this.comparator = comparator;
         this.toSort = toSort;
         for (int i =0; i<toSort.size(); i++){
             tau[i] = i;
@@ -55,7 +56,7 @@ public class Mergesort<T> {
         if (listMaxIndex<2){
             return ;
         }
-        int m = listMinIndex + listMaxIndex
+        int m = listMinIndex + listMaxIndex;
         //TODO: Insitu implementieren. !! Über indexe arbeite
         mergeSort(list, comparator, listMinIndex, listMaxIndex/2); //left
         mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);//right
