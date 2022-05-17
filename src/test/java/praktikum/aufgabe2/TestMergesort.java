@@ -17,7 +17,8 @@ public class TestMergesort {
             myList.add((int) (Math.random()*100));
         }
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
-        mergesort.mergeSort(myList, comparator, 0, myList.size());
+        mergesort.setup(myList, comparator);
+        int[] tau = mergesort.sort();
         for (int i=0; i<10-1;i++){
             assertTrue(myList.get(i)<= myList.get(i+1));
         }

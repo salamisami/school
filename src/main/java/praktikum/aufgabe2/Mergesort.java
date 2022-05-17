@@ -5,6 +5,8 @@ import static praktikum.aufgabe2.Constants.SIZE_OF_TO_SORT;
 
 public class Mergesort<T> {
     protected int[] tau;
+    private List<T> toSort;
+    private Comparator<T> comparator;
 
     public static void main(String[] args){
         Mergesort<Integer> myMerge = new Mergesort<>();
@@ -17,10 +19,11 @@ public class Mergesort<T> {
                 System.out.println();
             }
         }
-        List<Integer> result = myMerge.mergeSort(sortMe, comparator, 0, sortMe.size());
+        myMerge.setup(sortMe, comparator);
+        int[] tau = myMerge.sort();
         System.out.println("The sorted list:");
-        for (int i = 0; i < result.size(); i++) {
-            System.out.printf("%d. %d; ", i+1, result.get(i));
+        for (int i = 0; i < sortMe.size(); i++) {
+            System.out.printf("%d. %d; ", i+1, sortMe.get(tau[i]));
             if ((i+1)%10==0){
                 System.out.println();
             }
@@ -39,20 +42,24 @@ public class Mergesort<T> {
 }
     public void setup (List <T> toSort, Comparator<T> comparator){
         tau = new int[toSort.size()];
+        this.toSort = toSort;
         for (int i =0; i<toSort.size(); i++){
             tau[i] = i;
         }
-        this.mergeSort(toSort, comparator, 0, toSort.size());
     }
-    public List<T> mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
+    public int[] sort(){
+        this.mergeSort(toSort, comparator, 0, toSort.size());
+        return tau;
+    }
+    private void mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
         if (listMaxIndex<2){
-            return list;
+            return ;
         }
         //TODO: Insitu implementieren. !! Über indexe arbeite
         mergeSort(list, comparator, listMinIndex, listMaxIndex/2); //left
         mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);//right
         merge(listMinIndex, listMaxIndex/2, (listMaxIndex/2)+1, listMaxIndex, comparator, list);
-        return list;
+        return;
     }
 
 

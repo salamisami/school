@@ -6,5 +6,5 @@ package praktikum.aufgabe2;
  */
 public class Constants {
 
-    public static final int SIZE_OF_TO_SORT = 500;
+    public static final int SIZE_OF_TO_SORT = 5;
 }
