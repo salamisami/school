@@ -37,25 +37,26 @@ public class Mergesort<T> {
     }
       return  arr;
 }
-    public void setup (List <T> toSort, Comparator comparator){
+    public void setup (List <T> toSort, Comparator<T> comparator){
         tau = new int[toSort.size()];
         for (int i =0; i<toSort.size(); i++){
             tau[i] = i;
         }
         this.mergeSort(toSort, comparator, 0, toSort.size());
     }
-    public List<T> mergeSort(List<T> list, Comparator comparator, int listMinIndex, int listMaxIndex){
+    public List<T> mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
         if (listMaxIndex<2){
             return list;
         }
         //TODO: Insitu implementieren. !! Über indexe arbeite
-        mergeSort(list, comparator, listMinIndex, listMaxIndex/2);
-        mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);
-        return merge(left, right, comparator);
+        mergeSort(list, comparator, listMinIndex, listMaxIndex/2); //left
+        mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);//right
+        merge(listMinIndex, listMaxIndex/2, (listMaxIndex/2)+1, listMaxIndex, comparator, list);
+        return list;
     }
 
 
-    private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator comparator, List<T> toSort) {
+    private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
         int counterLeft = 0;
         int counterRight = 0;
         int leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
@@ -86,8 +87,8 @@ public class Mergesort<T> {
             leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
             rightNumbersOver = rightMax - counterRight;
         }
-        return ;
     }
+    //Ended up never needing this.. TODO:DELETE THIS ONCE FINISHED; UNSURE IF I STILL NEED THIS FOR INSERTION SORT.
     void swap (List <T> list, int i, int j){
         T temp = list.get(i);
         list.add(i, list.get(j));
