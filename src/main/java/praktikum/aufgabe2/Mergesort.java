@@ -53,14 +53,15 @@ public class Mergesort<T> {
         return tau;
     }
     private void mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
-        if (listMaxIndex<2){
+        int size = listMaxIndex-listMinIndex;
+        if ((size)<2){
             return ;
         }
-        int m = listMinIndex + listMaxIndex;
+        int m = listMinIndex + (size/2);// size = 5. 0 +5/2 = 2
         //TODO: Insitu implementieren. !! Über indexe arbeite
-        mergeSort(list, comparator, listMinIndex, listMaxIndex/2); //left
-        mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);//right
-        merge(listMinIndex, listMaxIndex/2, (listMaxIndex/2)+1, listMaxIndex, comparator, list);
+        mergeSort(list, comparator, listMinIndex, m); //left
+        mergeSort(list, comparator,m+1,listMaxIndex);//right
+        merge(listMinIndex, m, m+1, listMaxIndex, comparator, list);
         return;
     }
 
