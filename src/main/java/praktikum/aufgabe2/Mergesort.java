@@ -48,13 +48,14 @@ public class Mergesort<T> {
         }
     }
     public int[] sort(){
-        this.mergeSort(toSort, comparator, 0, toSort.size());
+        this.mergeSort(toSort, comparator, 0, toSort.size()-1);
         return tau;
     }
     private void mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
         if (listMaxIndex<2){
             return ;
         }
+        int m = listMinIndex + listMaxIndex
         //TODO: Insitu implementieren. !! Über indexe arbeite
         mergeSort(list, comparator, listMinIndex, listMaxIndex/2); //left
         mergeSort(list, comparator,(listMaxIndex/2)+1,listMaxIndex);//right
@@ -95,11 +96,20 @@ public class Mergesort<T> {
             rightNumbersOver = rightMax - counterRight;
         }
     }
-    //Ended up never needing this.. TODO:DELETE THIS ONCE FINISHED; UNSURE IF I STILL NEED THIS FOR INSERTION SORT.
     void swap (List <T> list, int i, int j){
         T temp = list.get(i);
         list.add(i, list.get(j));
         list.add(j, temp);
     }
-
+    private void insertionSort (List<T> toSort, Comparator<T> comparator){
+        int length = toSort.size();
+        for (int i=1; i<length; ++i){
+            T key = toSort.get(i);
+            int j = i-1;
+            while (j>= 0 && comparator.compare(toSort.get(j), key) >0){
+                swap(toSort, j+1, j);
+                j = j-1;
+            }
+        }
+    }
 }
