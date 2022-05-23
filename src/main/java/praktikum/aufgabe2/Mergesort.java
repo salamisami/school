@@ -4,7 +4,7 @@ import java.util.*;
 import static praktikum.aufgabe2.Constants.SIZE_OF_TO_SORT;
 
 public class Mergesort<T> {
-    public static int[] tau;
+    private static int[] tau;
     private List<T> toSort;
     private Comparator<T> comparator;
 
@@ -35,7 +35,7 @@ public class Mergesort<T> {
     }
     //Generiert eine ArrayList mit random Integern.
     // In einem vordefenierten Bereich zwischen 0>= randomints<=SIZE_OF_TO_SORT
-    private ArrayList<Integer> randomArrayList (){
+    public ArrayList<Integer> randomArrayList (){
 
     ArrayList<Integer> arr = new ArrayList<>();
       for (int i = 0; i < Constants.SIZE_OF_TO_SORT; i++) {
@@ -66,7 +66,6 @@ public class Mergesort<T> {
         mergeSort(list, comparator, listMinIndex, m); //left
         mergeSort(list, comparator,m,listMaxIndex);//right
         merge(listMinIndex, m, m, listMaxIndex, comparator, list);
-        return;
     }
 
 
@@ -79,7 +78,7 @@ public class Mergesort<T> {
         int counterRight = 0;
         int leftNumbersOver = leftMax - leftMin; //Wie viele sind unsortiert?
         int rightNumbersOver = rightMax - rightMin;
-        int tauTemp[] = new int[leftNumbersOver+rightNumbersOver];
+        int[] tauTemp = new int[leftNumbersOver+rightNumbersOver];
         //Tau Temp um die Zwischenergebnisse der Vergleiche zu speichern ohne Indexe in Tau Original
         while (leftNumbersOver > 0 || rightNumbersOver > 0){
             if (leftNumbersOver < 1){ //"Links" ist leer
@@ -107,10 +106,7 @@ public class Mergesort<T> {
                 rightNumbersOver--;
             }
         }
-        for (int i = 0; i<tauTemp.length; i++){ // Temporary Resultat in Ergebnis übertragen.
-            tau[leftMin+i] = tauTemp[i];
-        }
-        return;
+        System.arraycopy(tauTemp,0, tau, leftMin, tauTemp.length);
     }
     void swap (int i, int j){
         int temp = tau[i];
