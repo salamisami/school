@@ -10,11 +10,13 @@ public class Mergesort<T> {
 
     public static void main(String[] args){
         Mergesort<Integer> myMerge = new Mergesort<>();
-        ArrayList<Integer> sortMe = myMerge.randomArrayList();
+
+        //List<Integer> sortMe = Arrays.asList(4,3,2,1,0);
+        List<Integer> sortMe = myMerge.randomArrayList();
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
         System.out.println("The unsorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
-            System.out.printf("%d. %d; ", i+1, sortMe.get(i));
+            System.out.printf("%d, ", sortMe.get(i));
             if ((i+1)%10==0){
                 System.out.println();
             }
@@ -23,7 +25,7 @@ public class Mergesort<T> {
         int[] tau = myMerge.sort();
         System.out.println("The sorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
-            System.out.printf("%d. %d; ", i+1, sortMe.get(tau[i]));
+            System.out.printf("%d, ", sortMe.get(tau[i]));
             if ((i+1)%10==0){
                 System.out.println();
             }
@@ -49,7 +51,7 @@ public class Mergesort<T> {
         }
     }
     public int[] sort(){
-        this.mergeSort(toSort, comparator, 0, toSort.size()-1);
+        this.mergeSort(toSort, comparator, 0, toSort.size());
         return tau;
     }
     private void mergeSort(List<T> list, Comparator<T> comparator, int listMinIndex, int listMaxIndex){
@@ -60,42 +62,49 @@ public class Mergesort<T> {
         int m = listMinIndex + (size/2);// size = 5. 0 +5/2 = 2
         //TODO: Insitu implementieren. !! Über indexe arbeite
         mergeSort(list, comparator, listMinIndex, m); //left
-        mergeSort(list, comparator,m+1,listMaxIndex);//right
-        merge(listMinIndex, m, m+1, listMaxIndex, comparator, list);
+        mergeSort(list, comparator,m,listMaxIndex);//right
+        merge(listMinIndex, m, m, listMaxIndex, comparator, list);
         return;
     }
 
 
     private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
+
+        //TODO: If size <d_insitu -> insertionSort (In-situ)
         int counterLeft = 0;
         int counterRight = 0;
-        int leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
-        int rightNumbersOver = rightMax - counterRight;
+        int leftNumbersOver = leftMax - leftMin; //Wie viele sind unsortiert?
+        int rightNumbersOver = rightMax - rightMin;
+        int tauTemp[] = new int[leftNumbersOver+rightNumbersOver];
+        //Tau Temp um die Zwischenergebnisse der Vergleiche zu speichern ohne Indexe in Tau Original
         while (leftNumbersOver > 0 || rightNumbersOver > 0){
             if (leftNumbersOver < 1){ //"Links" ist leer
                 // TODO: Schöner lösen, counters vereinfachen.
-                tau[leftMax+counterRight] = rightMin+counterRight;
+                tauTemp[counterLeft+counterRight]=tau[counterRight+rightMin];
                 counterRight++;//Wie viele sind unsortiert?
-                rightNumbersOver = rightMax - counterRight;
+                rightNumbersOver--;
                 continue;
             }
             if (rightNumbersOver < 1){//"Rechts" ist leer
-                tau[rightMax+counterLeft] = leftMin+counterLeft;
+                tauTemp[counterLeft+counterRight]=tau[counterLeft+leftMin];
                 counterLeft++;
-                leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
+                leftNumbersOver--;
                 continue;
             }
-            int compareResult = comparator.compare(toSort.get(counterLeft+leftMin), toSort.get(counterRight+rightMin));
+            int compareResult = comparator.compare(toSort.get(tau[counterLeft+leftMin]), toSort.get(tau[counterRight+rightMin]));
             if( compareResult <= 0  ){
-                tau[counterLeft+counterRight+leftMin]=counterLeft+leftMin;
+                tauTemp[counterLeft+counterRight]=tau[counterLeft+leftMin];
                 counterLeft++;
+                leftNumbersOver--;
             }
             else {
-                tau[counterLeft+counterRight+leftMin]=counterRight+rightMin;
+                tauTemp[counterLeft+counterRight]=tau[counterRight+rightMin];
                 counterRight++;
+                rightNumbersOver--;
             }
-            leftNumbersOver = leftMax - counterLeft; //Wie viele sind unsortiert?
-            rightNumbersOver = rightMax - counterRight;
+        }
+        for (int i = 0; i<tauTemp.length; i++){ // Temporary Resultat in Ergebnis übertragen.
+            tau[leftMin+i] = tauTemp[i];
         }
     }
     void swap (List <T> list, int i, int j){
