@@ -7,31 +7,50 @@ public class Mergesort<T> {
     private static int[] tau;
     private List<T> toSort;
     private Comparator<T> comparator;
+    private static long[] testResults = new long[Constants.TEST_RUNTIME];
+    //Test setup to measure insitu insertion vs just mergesort.... I couldnt really see any differences.
 
+    //45660.7 10000000 size und 10 tests just merge
+    //Insertion +Merge: 46913.1  10000000 size und 10 tests just merge
     public static void main(String[] args){
+        long startTime = System.nanoTime();
+        for (int i = 0; i<Constants.TEST_RUNTIME; i++){
+            Mergesort mergesort = new Mergesort();
+            long endTime = System.nanoTime();
+            mergesort.run();
+            long duration = (endTime - startTime)/Constants.NANO_TO_MILISEC;  //divide by 1000000 to get milliseconds.
+            testResults[i]=duration;
+        }
+        OptionalDouble average = Arrays.stream(testResults).average();
+        System.out.println(average.toString());
+    }
+    private static OptionalDouble calculateAverage(long[] results){
+        return Arrays.stream(results).average();
+    }
+    public void run(){
         Mergesort<Integer> myMerge = new Mergesort<>();
 
-        List<Integer> sortMe = Arrays.asList(4,3,2,1,0);
-        //List<Integer> sortMe = myMerge.randomArrayList();
+        //List<Integer> sortMe = Arrays.asList(4,3,2,1,0); //For testing purposes to have a nice consistent list to sort.
+        List<Integer> sortMe = myMerge.randomArrayList();
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
-        System.out.println("The unsorted list:");
+        /*System.out.println("The unsorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
             System.out.printf("%d, ", sortMe.get(i));
             if ((i+1)%10==0){
                 System.out.println();
             }
-        }
+        }*/
         myMerge.setup(sortMe, comparator);
 
         int[] tau = myMerge.sort();
         //myMerge.insertionSort(sortMe,0,sortMe.size(), comparator);
-        System.out.println("The sorted list:");
+        /*System.out.println("The sorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
             System.out.printf("%d, ", sortMe.get(tau[i]));
             if ((i+1)%10==0){
                 System.out.println();
             }
-        }
+        }*/
     }
     //Generiert eine ArrayList mit random Integern.
     // In einem vordefenierten Bereich zwischen 0>= randomints<=SIZE_OF_TO_SORT
@@ -39,8 +58,7 @@ public class Mergesort<T> {
 
     ArrayList<Integer> arr = new ArrayList<>();
       for (int i = 0; i < Constants.SIZE_OF_TO_SORT; i++) {
-          arr.add((int)Math.floor(Math.random()*(SIZE_OF_TO_SORT*4))); //max,min, +1, min
-        //arr.add(rd.nextInt()); // storing random integers in an array
+          arr.add((int)Math.floor(Math.random()*(SIZE_OF_TO_SORT*4)));
     }
       return  arr;
 }
