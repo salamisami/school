@@ -4,15 +4,15 @@ import java.util.*;
 import static praktikum.aufgabe2.Constants.SIZE_OF_TO_SORT;
 
 public class Mergesort<T> {
-    protected int[] tau;
+    protected static int[] tau;
     private List<T> toSort;
     private Comparator<T> comparator;
 
     public static void main(String[] args){
         Mergesort<Integer> myMerge = new Mergesort<>();
 
-        //List<Integer> sortMe = Arrays.asList(4,3,2,1,0);
-        List<Integer> sortMe = myMerge.randomArrayList();
+        List<Integer> sortMe = Arrays.asList(4,3,2,1,0);
+        //List<Integer> sortMe = myMerge.randomArrayList();
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
         System.out.println("The unsorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
@@ -22,7 +22,9 @@ public class Mergesort<T> {
             }
         }
         myMerge.setup(sortMe, comparator);
+
         int[] tau = myMerge.sort();
+        //myMerge.insertionSort(sortMe,0,sortMe.size(), comparator);
         System.out.println("The sorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
             System.out.printf("%d, ", sortMe.get(tau[i]));
@@ -71,6 +73,10 @@ public class Mergesort<T> {
     private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
 
         //TODO: If size <d_insitu -> insertionSort (In-situ)
+        if (rightMax-leftMin < Constants.D_INSITU ){
+            insertionSort(toSort, leftMin, rightMax, comparator);
+            return;
+        }
         int counterLeft = 0;
         int counterRight = 0;
         int leftNumbersOver = leftMax - leftMin; //Wie viele sind unsortiert?
@@ -106,19 +112,19 @@ public class Mergesort<T> {
         for (int i = 0; i<tauTemp.length; i++){ // Temporary Resultat in Ergebnis übertragen.
             tau[leftMin+i] = tauTemp[i];
         }
+        return;
     }
-    void swap (List <T> list, int i, int j){
-        T temp = list.get(i);
-        list.add(i, list.get(j));
-        list.add(j, temp);
+    void swap (int i, int j){
+        int temp = tau[i];
+        tau[i]=tau[j];
+        tau[j]=temp;
     }
-    private void insertionSort (List<T> toSort, Comparator<T> comparator){
-        int length = toSort.size();
-        for (int i=1; i<length; ++i){
-            T key = toSort.get(i);
-            int j = i-1;
-            while (j>= 0 && comparator.compare(toSort.get(j), key) >0){
-                swap(toSort, j+1, j);
+    private void insertionSort (List<T> toSort, int minIndex, int maxIndex, Comparator<T> comparator){
+        int length = maxIndex-minIndex;
+        for (int i=minIndex; i<length; ++i){
+            int j = i;
+            while (j> minIndex && (comparator.compare(toSort.get(tau[j-1]), toSort.get(tau[j])) >0)){
+                swap(j-1, j);
                 j = j-1;
             }
         }
