@@ -4,7 +4,7 @@ import java.util.*;
 import static praktikum.aufgabe2.Constants.SIZE_OF_TO_SORT;
 
 public class Mergesort<T> {
-    protected static int[] tau;
+    public static int[] tau;
     private List<T> toSort;
     private Comparator<T> comparator;
 
@@ -71,9 +71,7 @@ public class Mergesort<T> {
 
 
     private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
-
-        //TODO: If size <d_insitu -> insertionSort (In-situ)
-        if (rightMax-leftMin < Constants.D_INSITU ){
+       if (rightMax-leftMin < Constants.D_INSITU ){
             insertionSort(toSort, leftMin, rightMax, comparator);
             return;
         }
@@ -120,8 +118,7 @@ public class Mergesort<T> {
         tau[j]=temp;
     }
     private void insertionSort (List<T> toSort, int minIndex, int maxIndex, Comparator<T> comparator){
-        int length = maxIndex-minIndex;
-        for (int i=minIndex; i<length; ++i){
+        for (int i=minIndex; i<maxIndex; ++i){
             int j = i;
             while (j> minIndex && (comparator.compare(toSort.get(tau[j-1]), toSort.get(tau[j])) >0)){
                 swap(j-1, j);
