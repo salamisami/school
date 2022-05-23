@@ -10,8 +10,8 @@ public class Mergesort<T> {
     private static long[] testResults = new long[Constants.TEST_RUNTIME];
     //Test setup to measure insitu insertion vs just mergesort.... I couldnt really see any differences.
 
-    //45660.7 10000000 size und 10 tests just merge
-    //Insertion +Merge: 46913.1  10000000 size und 10 tests just merge
+    //45660.7, 46534.6  10000000 size und 10 tests just merge
+    //Insertion +Merge: 1st run:46913.1   2nd run 40023.7  10000000 size und 10 tests
     public static void main(String[] args){
         long startTime = System.nanoTime();
         for (int i = 0; i<Constants.TEST_RUNTIME; i++){
@@ -88,10 +88,10 @@ public class Mergesort<T> {
 
 
     private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
-       if (rightMax-leftMin < Constants.D_INSITU ){
+      /* if (rightMax-leftMin < Constants.D_INSITU ){
             insertionSort(toSort, leftMin, rightMax, comparator);
             return;
-        }
+        }*/
         int counterLeft = 0;
         int counterRight = 0;
         int leftNumbersOver = leftMax - leftMin; //Wie viele sind unsortiert?
