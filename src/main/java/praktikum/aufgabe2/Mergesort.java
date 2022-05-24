@@ -12,6 +12,8 @@ public class Mergesort<T> {
 
     //45660.7, 46534.6  10000000 size und 10 tests just merge
     //Insertion +Merge: 1st run:46913.1   2nd run 40023.7  10000000 size und 10 tests
+
+    //DINSITU == 0; 167.1; D INSITU ==1000; 353.9;
     public static void main(String[] args){
         long startTime = System.nanoTime();
         for (int i = 0; i<Constants.TEST_RUNTIME; i++){
@@ -27,7 +29,7 @@ public class Mergesort<T> {
     private static OptionalDouble calculateAverage(long[] results){
         return Arrays.stream(results).average();
     }
-    public void run(){
+    public static void run(){
         Mergesort<Integer> myMerge = new Mergesort<>();
 
         //List<Integer> sortMe = Arrays.asList(4,3,2,1,0); //For testing purposes to have a nice consistent list to sort.
@@ -43,7 +45,6 @@ public class Mergesort<T> {
         myMerge.setup(sortMe, comparator);
 
         int[] tau = myMerge.sort();
-        //myMerge.insertionSort(sortMe,0,sortMe.size(), comparator);
         /*System.out.println("The sorted list:");
         for (int i = 0; i < sortMe.size(); i++) {
             System.out.printf("%d, ", sortMe.get(tau[i]));
@@ -79,8 +80,11 @@ public class Mergesort<T> {
         if ((size)<2){
             return ;
         }
-        int m = listMinIndex + (size/2);// size = 5. 0 +5/2 = 2
-        //TODO: Insitu implementieren. !! Über indexe arbeite
+        if (size < Constants.D_INSITU ){
+            insertionSort(toSort, listMinIndex, listMaxIndex, comparator);
+            return;
+        }
+        int m = listMinIndex + (size/2);// Beispiel: size = 5. 0 +5/2 = 2
         mergeSort(list, comparator, listMinIndex, m); //left
         mergeSort(list, comparator,m,listMaxIndex);//right
         merge(listMinIndex, m, m, listMaxIndex, comparator, list);
@@ -88,10 +92,6 @@ public class Mergesort<T> {
 
 
     private void merge(int leftMin, int leftMax, int rightMin, int rightMax, Comparator<T> comparator, List<T> toSort) {
-      /* if (rightMax-leftMin < Constants.D_INSITU ){
-            insertionSort(toSort, leftMin, rightMax, comparator);
-            return;
-        }*/
         int counterLeft = 0;
         int counterRight = 0;
         int leftNumbersOver = leftMax - leftMin; //Wie viele sind unsortiert?
@@ -126,7 +126,7 @@ public class Mergesort<T> {
         }
         System.arraycopy(tauTemp,0, tau, leftMin, tauTemp.length);
     }
-    void swap (int i, int j){
+    private void swap (int i, int j){
         int temp = tau[i];
         tau[i]=tau[j];
         tau[j]=temp;

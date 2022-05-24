@@ -11,7 +11,7 @@ public class TestMergesort {
     @Test
     public void testInteger(){
         Mergesort<Integer> mergesort = new Mergesort<>();
-                //TODO: add tests for list of integer, custom classes, strings...
+        //TODO: add tests for list of integer, custom classes, strings...
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
         List<Integer> myList = mergesort.randomArrayList();
         mergesort.setup(myList, comparator);
