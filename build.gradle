@@ -5,8 +5,8 @@ plugins {
 }
 
 // An dieser Stelle immer die aktuelle JavaFX-Anwendung einkommentieren
-mainClassName = "praktikum.aufgabe1.SimulationApplication"
-//mainClassName = "praktikum.aufgabe3.Smelloscope"
+//mainClassName = "praktikum.aufgabe1.SimulationApplication"
+mainClassName = "praktikum.aufgabe3.Smelloscope"
 //mainClassName = "praktikum.aufgabe4.ClientServerApplication"
 
 // Nur für die Musterlösungen relevant
