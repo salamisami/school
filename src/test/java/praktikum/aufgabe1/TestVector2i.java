@@ -1,8 +1,8 @@
 package praktikum.aufgabe1;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Testing class for Vector2i

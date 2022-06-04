@@ -12,13 +12,19 @@ public class Server extends SocketWidget {
 
   private ServerSocket serverSocket;
 
-  public Server(int port, UnaryOperator<String> encode, UnaryOperator<String> decode) {
+  public Server(
+    int port,
+    UnaryOperator<String> encode,
+    UnaryOperator<String> decode
+  ) {
     super(port, "Server", encode, decode);
     try {
       serverSocket = new ServerSocket(port);
       debugMessage("Running on port " + port);
     } catch (IOException e) {
-      debugMessage("Failed to start server on port " + port + "( " + e.getMessage() + ")");
+      debugMessage(
+        "Failed to start server on port " + port + "( " + e.getMessage() + ")"
+      );
     }
   }
 

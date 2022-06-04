@@ -72,12 +72,13 @@ public class SimulationApplication extends Application implements Observer {
    * Setup chart.
    */
   private LineChart initStatistics() {
-
     // Chart
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();
-    final LineChart<Number, Number> lineChart =
-            new LineChart<Number, Number>(xAxis, yAxis);
+    final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(
+      xAxis,
+      yAxis
+    );
     lineChart.setCreateSymbols(false);
     lineChart.setLegendVisible(false);
 
@@ -97,8 +98,12 @@ public class SimulationApplication extends Application implements Observer {
    * Setup a series (color).
    */
   private void setupSeries(XYChart.Series series, Color color) {
-    final String colorString = String.format("rgba(%d, %d, %d, 1.0)",
-            (int) (color.getRed() * 255), (int) (color.getGreen() * 255), (int) (color.getBlue() * 255));
+    final String colorString = String.format(
+      "rgba(%d, %d, %d, 1.0)",
+      (int) (color.getRed() * 255),
+      (int) (color.getGreen() * 255),
+      (int) (color.getBlue() * 255)
+    );
     final String lineStyle = String.format("-fx-stroke: %s;", colorString);
     series.getNode().lookup(".chart-series-line").setStyle(lineStyle);
   }
@@ -107,11 +112,31 @@ public class SimulationApplication extends Application implements Observer {
   public void update(Object payload) {
     int time = (Integer) payload;
     Platform.runLater(() -> {
-              seriesHealthy.getData().add(new XYChart.Data(time, simulation.getNumPersonsWith(Person.HealthState.HEALTHY)));
-              seriesSick.getData().add(new XYChart.Data(time, simulation.getNumPersonsWith(Person.HealthState.SICK)));
-              seriesImmune.getData().add(new XYChart.Data(time, simulation.getNumPersonsWith(Person.HealthState.IMMUNE)));
-            }
-    );
+      seriesHealthy
+        .getData()
+        .add(
+          new XYChart.Data(
+            time,
+            simulation.getNumPersonsWith(Person.HealthState.HEALTHY)
+          )
+        );
+      seriesSick
+        .getData()
+        .add(
+          new XYChart.Data(
+            time,
+            simulation.getNumPersonsWith(Person.HealthState.SICK)
+          )
+        );
+      seriesImmune
+        .getData()
+        .add(
+          new XYChart.Data(
+            time,
+            simulation.getNumPersonsWith(Person.HealthState.IMMUNE)
+          )
+        );
+    });
   }
 
   public static void main(String[] args) {

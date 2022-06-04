@@ -9,10 +9,15 @@ package praktikum.aufgabe1;
  * A person in the simulation that may become sick.
  */
 public class Person {
+
   /**
    * Persons can have one of the following health states.
    */
-  public enum HealthState {HEALTHY, SICK, IMMUNE}
+  public enum HealthState {
+    HEALTHY,
+    SICK,
+    IMMUNE,
+  }
 
   /**
    * Current position.
@@ -41,7 +46,7 @@ public class Person {
       timeSinceBecomingSick = 0;
     }
     //Direction of the person initialized as a random variable-
-    this.angle = (int)(Math.random()*360);
+    this.angle = (int) (Math.random() * 360);
   }
 
   /**
@@ -69,14 +74,18 @@ public class Person {
    * If the person reaches an edge of the room, he does a 180° turn and moves toward that direction.
    * @param simulationArea The room as a Vector2i where the person is currently in
    */
-  private void movement (Vector2i simulationArea){
+  private void movement(Vector2i simulationArea) {
     int currentXPos = this.pos.getX();
     int currentYPos = this.pos.getY();
-    if (currentYPos >= simulationArea.getY() || currentXPos >= simulationArea.getX() ||
-            currentYPos <= 0 ||currentXPos <= 0 ){
+    if (
+      currentYPos >= simulationArea.getY() ||
+      currentXPos >= simulationArea.getX() ||
+      currentYPos <= 0 ||
+      currentXPos <= 0
+    ) {
       this.angle += 180;
       //Just to be sure my angle never reaches max int.
-      if (this.angle > 360){
+      if (this.angle > 360) {
         this.angle = this.angle % 360;
       }
     }
@@ -84,23 +93,25 @@ public class Person {
     this.angle += (int) (Math.random() * 90);
     try {
       Vector2i dirVector = angleToDirVector();
-      dirVector.setX((dirVector.getX() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
-      dirVector.setY((dirVector.getY() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR);
-      this.pos.setX(currentXPos+dirVector.getX());
-      this.pos.setY(currentYPos+dirVector.getY());
+      dirVector.setX(
+        (dirVector.getX() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR
+      );
+      dirVector.setY(
+        (dirVector.getY() * Constants.MOVE_DISTANCE) / Constants.COMMA_FACTOR
+      );
+      this.pos.setX(currentXPos + dirVector.getX());
+      this.pos.setY(currentYPos + dirVector.getY());
     } catch (Exception e) {
       e.printStackTrace();
     }
-    if (this.pos.getX() > simulationArea.getX()){
+    if (this.pos.getX() > simulationArea.getX()) {
       this.pos.setX(simulationArea.getX());
-    }
-    else if(this.pos.getX() < 0){
+    } else if (this.pos.getX() < 0) {
       this.pos.setX(0);
     }
-    if (this.pos.getY() > simulationArea.getY()){
+    if (this.pos.getY() > simulationArea.getY()) {
       this.pos.setY(simulationArea.getY());
-    }
-    else if (this.pos.getY() < 0){
+    } else if (this.pos.getY() < 0) {
       this.pos.setY(0);
     }
   }
@@ -111,20 +122,26 @@ public class Person {
    * @return Vector2i
    * @throws Exception When angle is greater than 360 or negative
    */
-  private Vector2i angleToDirVector () throws Exception {
-    return new Vector2i((int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
-            (int) (Constants.COMMA_FACTOR * Math.sin(this.angle)));
-    }
+  private Vector2i angleToDirVector() throws Exception {
+    return new Vector2i(
+      (int) (Constants.COMMA_FACTOR * Math.cos(this.angle)),
+      (int) (Constants.COMMA_FACTOR * Math.sin(this.angle))
+    );
+  }
 
   /**
    * If the person is infected and the neighbour is not immune, the neighbour gets sick.
    * @param neighbour the person who is going to be infected if it's healthy.
    */
-  public void infect (Person neighbour){
-    if (this.healthState == HealthState.SICK && neighbour.healthState == HealthState.HEALTHY){
+  public void infect(Person neighbour) {
+    if (
+      this.healthState == HealthState.SICK &&
+      neighbour.healthState == HealthState.HEALTHY
+    ) {
       neighbour.healthState = HealthState.SICK;
     }
-}
+  }
+
   /// GETTER/SETTER
 
   public Vector2i getPos() {
@@ -139,7 +156,9 @@ public class Person {
     if (this.healthState == HealthState.IMMUNE) {
       return;
     }
-    if (this.healthState == HealthState.HEALTHY && healthState == HealthState.SICK) {
+    if (
+      this.healthState == HealthState.HEALTHY && healthState == HealthState.SICK
+    ) {
       timeSinceBecomingSick = 0;
     }
     this.healthState = healthState;

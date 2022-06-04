@@ -5,19 +5,19 @@
 
 package praktikum.aufgabe3.map;
 
-import praktikum.aufgabe3.Constants;
-import praktikum.base.Observable;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import praktikum.aufgabe3.Constants;
+import praktikum.base.Observable;
 
 /**
  * Represents the map consisting of cells, the controlled character and a target.
  */
 public class Map extends Observable {
+
   /**
    * Menge aller Zellen
    */
@@ -52,7 +52,8 @@ public class Map extends Observable {
   public Cell getRandomNonOccupedCell() {
     Cell randomCell = null;
     while (randomCell == null) {
-      randomCell = new ArrayList<>(cells).get((int) (Math.random() * cells.size()));
+      randomCell =
+        new ArrayList<>(cells).get((int) (Math.random() * cells.size()));
       if (randomCell.isOccupied()) {
         randomCell = null;
       }
@@ -71,7 +72,10 @@ public class Map extends Observable {
 
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
-        Cell zelle = new Cell(new Point(i, j), Math.random() < isOccupiedProbability);
+        Cell zelle = new Cell(
+          new Point(i, j),
+          Math.random() < isOccupiedProbability
+        );
         addCell(zelle);
         cellCache[i][j] = zelle;
       }
@@ -82,24 +86,33 @@ public class Map extends Observable {
         if (i < width - 1) {
           if (i % 2 == 0) {
             if (j > 0) {
-              cellCache[i][j].setNeigghbor(Constants.Direction.HOUR_2,
-                      cellCache[i + 1][j - 1]);
+              cellCache[i][j].setNeigghbor(
+                  Constants.Direction.HOUR_2,
+                  cellCache[i + 1][j - 1]
+                );
             }
-            cellCache[i][j].setNeigghbor(Constants.Direction.HOUR_4,
-                    cellCache[i + 1][j]);
-
+            cellCache[i][j].setNeigghbor(
+                Constants.Direction.HOUR_4,
+                cellCache[i + 1][j]
+              );
           } else {
-            cellCache[i][j].setNeigghbor(Constants.Direction.HOUR_2,
-                    cellCache[i + 1][j]);
+            cellCache[i][j].setNeigghbor(
+                Constants.Direction.HOUR_2,
+                cellCache[i + 1][j]
+              );
             if (j < height - 1) {
-              cellCache[i][j].setNeigghbor(Constants.Direction.HOUR_4,
-                      cellCache[i + 1][j + 1]);
+              cellCache[i][j].setNeigghbor(
+                  Constants.Direction.HOUR_4,
+                  cellCache[i + 1][j + 1]
+                );
             }
           }
         }
         if (j < height - 1) {
-          cellCache[i][j].setNeigghbor(Constants.Direction.HOUR_6,
-                  cellCache[i][j + 1]);
+          cellCache[i][j].setNeigghbor(
+              Constants.Direction.HOUR_6,
+              cellCache[i][j + 1]
+            );
         }
       }
     }
@@ -113,7 +126,7 @@ public class Map extends Observable {
 
     // Update smell for all cells
     float maxDist = 0;
-    for (Iterator<Cell> it = getCellIterator(); it.hasNext(); ) {
+    for (Iterator<Cell> it = getCellIterator(); it.hasNext();) {
       Cell cell = it.next();
       float dist = cell.getDistanceTo(targetCell);
       maxDist = Math.max(maxDist, dist);

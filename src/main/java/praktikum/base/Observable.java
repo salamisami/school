@@ -42,5 +42,4 @@ public abstract class Observable {
   public void notifyObservers() {
     notifyObservers(null);
   }
-
 }

@@ -11,7 +11,12 @@ public class Client extends SocketWidget {
 
   private final String hostname;
 
-  public Client(int port, String hostname, UnaryOperator<String> encode, UnaryOperator<String> decode) {
+  public Client(
+    int port,
+    String hostname,
+    UnaryOperator<String> encode,
+    UnaryOperator<String> decode
+  ) {
     super(port, "Client", encode, decode);
     this.hostname = hostname;
   }

@@ -9,6 +9,7 @@ package praktikum.aufgabe3.map;
  * Helper structure to represent a connection between two cells.
  */
 public class Link {
+
   /**
    * The two connected cells
    */

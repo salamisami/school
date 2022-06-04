@@ -5,14 +5,14 @@
 
 package praktikum.aufgabe3.map;
 
-import praktikum.aufgabe3.Constants;
-
 import java.awt.*;
+import praktikum.aufgabe3.Constants;
 
 /**
  * A hexagonal cell
  */
 public class Cell {
+
   /**
    * Array with links to neighboring cells
    */
@@ -79,12 +79,19 @@ public class Cell {
   public float getDistanceTo(Cell other) {
     Point a = Constants.getWorldCoordinates(getIndex());
     Point b = Constants.getWorldCoordinates(other.getIndex());
-    return (float) Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    return (float) Math.sqrt(
+      (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)
+    );
   }
 
   @Override
   public String toString() {
-    return String.format("(%d/%d/%.2f)", index.x, index.y, smellDistanceEstimate);
+    return String.format(
+      "(%d/%d/%.2f)",
+      index.x,
+      index.y,
+      smellDistanceEstimate
+    );
   }
 
   /// GETTER/SETTER

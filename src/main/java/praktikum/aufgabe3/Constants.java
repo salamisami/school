@@ -16,7 +16,12 @@ public abstract class Constants {
    * Directions from a cell towards its neighboring cells.
    */
   public enum Direction {
-    HOUR_0, HOUR_2, HOUR_4, HOUR_6, HOUR_8, HOUR_10;
+    HOUR_0,
+    HOUR_2,
+    HOUR_4,
+    HOUR_6,
+    HOUR_8,
+    HOUR_10;
 
     /**
      * Opposite direction of a given direction.
@@ -49,8 +54,8 @@ public abstract class Constants {
   /**
    * Hexagon height for a cell during rendering
    */
-  public static final double ZELL_RENDER_HEIGHT = Math.sqrt(3) / 2.0
-          * Constants.CELL_RENDER_SIDELENGTH;
+  public static final double ZELL_RENDER_HEIGHT =
+    Math.sqrt(3) / 2.0 * Constants.CELL_RENDER_SIDELENGTH;
 
   /**
    * Moving speed of the character
@@ -81,11 +86,19 @@ public abstract class Constants {
    * Compute the world coordinates for a given (cell) index.
    */
   private static Point getWorldCoordinates(int i, int j) {
-    int x = (int) (i * Constants.CELL_RENDER_SIDELENGTH * 1.5
-            + Constants.CELL_RENDER_SIDELENGTH);
-    int y = (int) (j * Constants.ZELL_RENDER_HEIGHT * 2
-            + ((i % 2 == 1) ? Constants.ZELL_RENDER_HEIGHT : 0)
-            + Constants.CELL_RENDER_SIDELENGTH);
+    int x = (int) (
+      i *
+      Constants.CELL_RENDER_SIDELENGTH *
+      1.5 +
+      Constants.CELL_RENDER_SIDELENGTH
+    );
+    int y = (int) (
+      j *
+      Constants.ZELL_RENDER_HEIGHT *
+      2 +
+      ((i % 2 == 1) ? Constants.ZELL_RENDER_HEIGHT : 0) +
+      Constants.CELL_RENDER_SIDELENGTH
+    );
     return new Point(x, y);
   }
 

@@ -5,11 +5,10 @@
 
 package praktikum.aufgabe1;
 
-import praktikum.base.Observable;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import praktikum.base.Observable;
 
 /**
  * Simulation of persons health.
@@ -37,11 +36,17 @@ public class Simulation extends Observable implements Runnable {
    */
   private void generatePersons(int number) {
     for (int i = 0; i < number; i++) {
-      Person.HealthState healthState = Math.random() < Constants.INITIAL_FRACTION_SICK ?
-              Person.HealthState.SICK : Person.HealthState.HEALTHY;
-      persons.add(makePerson((int) (Math.random() * simulationArea.getX()),
-              (int) (Math.random() * simulationArea.getY()),
-              healthState));
+      Person.HealthState healthState = Math.random() <
+        Constants.INITIAL_FRACTION_SICK
+        ? Person.HealthState.SICK
+        : Person.HealthState.HEALTHY;
+      persons.add(
+        makePerson(
+          (int) (Math.random() * simulationArea.getX()),
+          (int) (Math.random() * simulationArea.getY()),
+          healthState
+        )
+      );
     }
   }
 
@@ -64,7 +69,10 @@ public class Simulation extends Observable implements Runnable {
    */
   public int getNumPersonsWith(Person.HealthState healthState) {
     int numPersons = 0;
-    for (Iterator<Person> personIterator = personIterator(); personIterator.hasNext(); ) {
+    for (
+      Iterator<Person> personIterator = personIterator();
+      personIterator.hasNext();
+    ) {
       Person person = personIterator.next();
       if (person.getHealthState() == healthState) {
         numPersons++;
@@ -100,15 +108,15 @@ public class Simulation extends Observable implements Runnable {
    */
   protected void simulatePersons() {
     // Move
-    for (Iterator<Person> it = personIterator(); it.hasNext(); ) {
+    for (Iterator<Person> it = personIterator(); it.hasNext();) {
       Person person = it.next();
-      for (Iterator<Person> is = personIterator(); is.hasNext(); ){
+      for (Iterator<Person> is = personIterator(); is.hasNext();) {
         Person neighbour = is.next();
-        if (neighbour == person){
+        if (neighbour == person) {
           continue;
         }
         float distToNeigh = person.pos.distanceTo(neighbour.pos);
-        if (!(distToNeigh > Constants.INFECTION_RADIUS)){
+        if (!(distToNeigh > Constants.INFECTION_RADIUS)) {
           person.infect(neighbour);
         }
       }

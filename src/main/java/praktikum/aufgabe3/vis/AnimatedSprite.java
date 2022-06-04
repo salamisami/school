@@ -5,21 +5,21 @@
 
 package praktikum.aufgabe3.vis;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import praktikum.aufgabe3.Constants;
-import praktikum.aufgabe3.map.Character;
-
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import praktikum.aufgabe3.Constants;
+import praktikum.aufgabe3.map.Character;
 
 /**
  * Animated sprite rendering
  */
 public class AnimatedSprite {
+
   /**
    * Sprite input image width
    */
@@ -44,6 +44,7 @@ public class AnimatedSprite {
    * Inner structure to hold the information for an animation state.
    */
   private class StateImage {
+
     public int numFrames;
     public Image img;
 
@@ -78,7 +79,9 @@ public class AnimatedSprite {
     Image img = new Image(inputstream);
     int numFrames = (int) (img.getWidth()) / width;
     stateImages.put(state, new StateImage(numFrames, img));
-    System.out.println("Created sprite animation " + state + " with " + numFrames + " frames.");
+    System.out.println(
+      "Created sprite animation " + state + " with " + numFrames + " frames."
+    );
   }
 
   /**
@@ -96,7 +99,16 @@ public class AnimatedSprite {
     currentFrame = currentFrame % stateImage.numFrames;
     int renderWidth = (int) (Constants.CELL_RENDER_SIDELENGTH * 1.5);
     int rendeHeight = (int) (Constants.CELL_RENDER_SIDELENGTH * 1.5);
-    gc.drawImage(stateImage.img, currentFrame * width, 0, width, height,
-            p.x - renderWidth / 2, p.y - rendeHeight / 2, renderWidth, rendeHeight);
+    gc.drawImage(
+      stateImage.img,
+      currentFrame * width,
+      0,
+      width,
+      height,
+      p.x - renderWidth / 2,
+      p.y - rendeHeight / 2,
+      renderWidth,
+      rendeHeight
+    );
   }
 }

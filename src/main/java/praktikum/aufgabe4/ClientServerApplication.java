@@ -1,10 +1,9 @@
 package praktikum.aufgabe4;
 
+import java.util.function.UnaryOperator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.function.UnaryOperator;
 
 /**
  * JavaFX-Application to run a client and a server which exchange messages.

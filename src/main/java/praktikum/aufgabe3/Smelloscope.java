@@ -1,5 +1,8 @@
 package praktikum.aufgabe3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -8,10 +11,6 @@ import praktikum.aufgabe3.map.Cell;
 import praktikum.aufgabe3.map.Character;
 import praktikum.aufgabe3.map.Map;
 import praktikum.aufgabe3.vis.MapRenderer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Benutzerinterface (Fenter für das KuerzesterPfadVisualisierung):
@@ -29,8 +28,11 @@ public class Smelloscope extends Application {
   @Override
   public void start(Stage buehne) throws Exception {
     BorderPane wurzel = new BorderPane();
-    Scene szene = new Scene(wurzel, Constants.WINDOW_WIDTH,
-            Constants.WINDOW_HEIGHT);
+    Scene szene = new Scene(
+      wurzel,
+      Constants.WINDOW_WIDTH,
+      Constants.WINDOW_HEIGHT
+    );
     buehne.setTitle("Smelloscope");
     buehne.setScene(szene);
     map = new Map(10, 8);
@@ -46,22 +48,26 @@ public class Smelloscope extends Application {
   }
 
   private void gameLoop(Map map) {
-    gameLoopThread = new Thread(() -> {
-      while (!Thread.currentThread().isInterrupted()) {
-        map.getCharacter().move();
-        if (map.getCharacter().getMoveDirection() == Character.State.IDLE) {
-          map.newTargetCell();
-          List<Cell> path = getPath(map.getCharacter().getCurrentCell(), map.getTargetCell());
-          map.getCharacter().setPath(path);
+    gameLoopThread =
+      new Thread(() -> {
+        while (!Thread.currentThread().isInterrupted()) {
+          map.getCharacter().move();
+          if (map.getCharacter().getMoveDirection() == Character.State.IDLE) {
+            map.newTargetCell();
+            List<Cell> path = getPath(
+              map.getCharacter().getCurrentCell(),
+              map.getTargetCell()
+            );
+            map.getCharacter().setPath(path);
+          }
+          spielRenderer.redraw();
+          try {
+            Thread.sleep(100);
+          } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+          }
         }
-        spielRenderer.redraw();
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
-      }
-    });
+      });
     gameLoopThread.start();
   }
 

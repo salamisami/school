@@ -5,20 +5,26 @@
 
 package praktikum.aufgabe3.map;
 
-import praktikum.aufgabe3.Constants;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import praktikum.aufgabe3.Constants;
 
 /**
  * This is the character which follows a (computed) path towards a target cell.
  */
 public class Character {
+
   /**
    * Possible animation/move/behaviour states
    */
-  public enum State {IDLE, WALK_LEFT, WALK_RIGHT, WALK_UP, WALK_DOWN}
+  public enum State {
+    IDLE,
+    WALK_LEFT,
+    WALK_RIGHT,
+    WALK_UP,
+    WALK_DOWN,
+  }
 
   /**
    * Current path
@@ -105,10 +111,12 @@ public class Character {
       float alpha = tau - a;
       Point pA = Constants.getWorldCoordinates(path.get(a).getIndex());
       Point pB = Constants.getWorldCoordinates(path.get(a + 1).getIndex());
-      return new Point((int) (pA.x * (1 - alpha) + pB.x * alpha), (int) (pA.y * (1 - alpha) + pB.y * alpha));
+      return new Point(
+        (int) (pA.x * (1 - alpha) + pB.x * alpha),
+        (int) (pA.y * (1 - alpha) + pB.y * alpha)
+      );
     }
     return Constants.getWorldCoordinates(currentCell.getIndex());
-
   }
 
   // GETTER/SETTER

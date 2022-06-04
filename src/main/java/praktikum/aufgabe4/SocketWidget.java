@@ -1,5 +1,8 @@
 package praktikum.aufgabe4;
 
+import java.io.*;
+import java.net.Socket;
+import java.util.function.UnaryOperator;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,10 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.io.*;
-import java.net.Socket;
-import java.util.function.UnaryOperator;
 
 /**
  * This abstract class encapsulates a socket and automatically generates a JavaFX
@@ -83,8 +82,12 @@ public abstract class SocketWidget {
    * @param encode Encoding operation before sending
    * @param decode Decoding operation after receiving
    */
-  public SocketWidget(int port, String name,
-                      UnaryOperator<String> encode, UnaryOperator<String> decode) {
+  public SocketWidget(
+    int port,
+    String name,
+    UnaryOperator<String> encode,
+    UnaryOperator<String> decode
+  ) {
     this.port = port;
     this.name = name;
     this.logText = "";
@@ -94,10 +97,12 @@ public abstract class SocketWidget {
     // Load icon images
     InputStream inputConnected = null;
     InputStream inputDisconnected = null;
-    String disconnectedIconFilename = "src/main/resources/icons/disconnected.png";
+    String disconnectedIconFilename =
+      "src/main/resources/icons/disconnected.png";
     String connectedIconFilename = "src/main/resources/icons/connected.png";
     try {
-      inputDisconnected = new FileInputStream(new File(disconnectedIconFilename));
+      inputDisconnected =
+        new FileInputStream(new File(disconnectedIconFilename));
       inputConnected = new FileInputStream(new File(connectedIconFilename));
     } catch (FileNotFoundException e) {
       System.out.println("Could not find icon file.");
@@ -172,7 +177,6 @@ public abstract class SocketWidget {
     buttonConnectToServer.setOnAction(e -> connect());
     root.getChildren().add(buttonConnectToServer);
 
-
     connectedStateLabel = new Label("", disconnectedImageView);
     root.getChildren().add(connectedStateLabel);
 
@@ -241,12 +245,11 @@ public abstract class SocketWidget {
    */
   private void setConnectionIcon(boolean isConnected) {
     Platform.runLater(() -> {
-              if (isConnected) {
-                connectedStateLabel.setGraphic(connectedImageView);
-              } else {
-                connectedStateLabel.setGraphic(disconnectedImageView);
-              }
-            }
-    );
+      if (isConnected) {
+        connectedStateLabel.setGraphic(connectedImageView);
+      } else {
+        connectedStateLabel.setGraphic(disconnectedImageView);
+      }
+    });
   }
 }

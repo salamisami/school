@@ -9,6 +9,7 @@ package praktikum.aufgabe1;
  * A 2D integer vector.
  */
 public class Vector2i {
+
   /**
    * x coordinate.
    */

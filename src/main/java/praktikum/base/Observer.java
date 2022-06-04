@@ -9,7 +9,6 @@ package praktikum.base;
  * An observer observes an observable object and gets informed about changes
  */
 public interface Observer {
-
   /**
    * This method is called when the observable informs its observers about some change.
    *
