@@ -28,7 +28,7 @@ public class TestGraph {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }
-    Graph graph;
+    Graph<Integer> graph;
     @BeforeEach
     public void initInteger(){
         Graph<Integer> graph = new GraphImpl<>();
@@ -40,7 +40,7 @@ public class TestGraph {
         ) {
             graph.addElementAsNode(arrElement);
         }
-        Iterator graphIterator = graph.getElements();;
+        Iterator<Integer> graphIterator = graph.getElements();;
         /*for (int i=0; i<arr.length; i++) { TODO: Test iterator if it contains all elements.
             assertThat(graphIterator.hasNext());
         }*/
@@ -58,8 +58,12 @@ public class TestGraph {
     public void testAddEdgeExistant() {
         int a =1;
         int b=2;
-        graph.addEdge(a,b, 1.0f, false);
-        assertEquals(1.0f, graph.getEdgeWeight(a,b));
+
+        float edge = 1.0f;
+        graph.addElementAsNode(a);
+        graph.addElementAsNode(b);
+        graph.addEdge(a,b, edge, false);
+        assertEquals(edge, graph.getEdgeWeight(a,b));
 
     }
 }

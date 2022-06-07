@@ -30,18 +30,18 @@ public class GraphImpl<T> implements Graph {
     float weight,
     boolean isUnidirectional
   ) {
-    if (this.adjacencyList.get(from) != null || this.adjacencyList.get(to)!=null){ //Do the objects even exist in our graph?
+    if (this.adjacencyList.get(from) == null || this.adjacencyList.get(to)==null){ //Do the objects even exist in our graph?
       System.err.printf("Either from or to is not in the list.");
       return;
     }
-      try {
+      //try {
         this.adjacencyList.get(from).put((T) to, weight); //In case it can't be cast into T
         if (!isUnidirectional){
           this.adjacencyList.get(to).put((T) from, weight);
         }
-      } catch (Exception e) {
-        throw new RuntimeException(e);
-      }
+      //} catch (Exception e) {
+      // throw new RuntimeException(e);
+      //}
 
   }
 
@@ -72,14 +72,16 @@ public class GraphImpl<T> implements Graph {
   @Override
   public float getEdgeWeight(Object from, Object to) {
     Set neighbors = this.getNeighbors(from);
+    float result;
     if (neighbors.contains(to)) {
-      float result = this.adjacencyList.get(from).get(to);
+
+      result = this.adjacencyList.get(from).get(to);
     } else {
       System.err.printf(
         "No edge between %s and %to", from.toString(), to.toString()
       );
       return 0;
     }
-    return 0;
+    return result;
   }
 }

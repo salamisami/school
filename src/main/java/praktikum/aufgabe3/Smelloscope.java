@@ -2,6 +2,7 @@ package praktikum.aufgabe3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import praktikum.aufgabe3.map.Cell;
 import praktikum.aufgabe3.map.Character;
 import praktikum.aufgabe3.map.Map;
 import praktikum.aufgabe3.vis.MapRenderer;
+
+import static javafx.scene.input.KeyCode.T;
 
 /**
  * Benutzerinterface (Fenter für das KuerzesterPfadVisualisierung):
@@ -77,6 +80,7 @@ public class Smelloscope extends Application {
   protected List<Cell> getPath(Cell start, Cell target) {
     // Dummy solution: uses neighbor-cell instead of target cell - replace with A*-path
     // Insert your solution here
+   /* myAstarAlgo(Graph myGraph, startWerte, targetWerte, LinkedList results);*/
     Cell end = start.getNeighborCell(Constants.Direction.HOUR_0);
     return end != null ? Arrays.asList(start, end) : new ArrayList<>();
   }
