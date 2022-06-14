@@ -8,6 +8,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import praktikum.aufgabe3.graphs.Graph;
+import praktikum.aufgabe3.graphs.GraphImpl;
+import praktikum.aufgabe3.graphs.GraphMapMaker;
 import praktikum.aufgabe3.map.Cell;
 import praktikum.aufgabe3.map.Character;
 import praktikum.aufgabe3.map.Map;
@@ -81,11 +84,15 @@ public class Smelloscope extends Application {
     // Dummy solution: uses neighbor-cell instead of target cell - replace with A*-path
     // Insert your solution here
    /* myAstarAlgo(Graph myGraph, startWerte, targetWerte, LinkedList results);*/
+    Graph graph = new GraphImpl<Cell>();
+    GraphMapMaker graphMapMaker = new GraphMapMaker(this.map, graph);
+    Graph graphMap = graphMapMaker.transferMapGraph();
     Cell end = start.getNeighborCell(Constants.Direction.HOUR_0);
     return end != null ? Arrays.asList(start, end) : new ArrayList<>();
   }
 
   public static void main(String[] args) {
     Application.launch(args);
+
   }
 }
