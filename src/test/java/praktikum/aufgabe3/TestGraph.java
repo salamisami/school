@@ -58,12 +58,19 @@ public class TestGraph {
     public void testAddEdgeExistant() {
         int a =1;
         int b=2;
-
-        float edge = 1.0f;
+        int c=3;
+        float edge = 2.0f;
         graph.addElementAsNode(a);
         graph.addElementAsNode(b);
+        graph.addElementAsNode(c);
         graph.addEdge(a,b, edge, false);
-        assertEquals(edge, graph.getEdgeWeight(a,b));
+        graph.addEdge(a,c, edge, false);
+        graph.addEdge(b,c, edge, false);
+        float weightAB =  graph.getEdgeWeight(a,b);
+        float weightAC =  graph.getEdgeWeight(a,c);
+        float weightBC =  graph.getEdgeWeight(b,c);
+        System.out.printf("Edgeweight: %.2f ", weightAB);
+        assertEquals(edge, weightAB);assertEquals(edge, weightAC);assertEquals(edge, weightBC);
 
     }
 }
