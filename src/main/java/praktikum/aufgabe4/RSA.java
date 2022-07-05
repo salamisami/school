@@ -9,13 +9,17 @@ public class RSA {
     private BigInteger d;
     private BigInteger n;
     public Pair<Integer, Integer> publicK;
+    public RSA(){
+        init();
+    }
     public void init(){
         int p = getPrim(50, 150);
         int q = getPrim(50, 150);
         while(p == q){ // Wenn die beiden gleich sind, finde eine andere Primzahl für p.
             p = getPrim(50, 150);
         }
-        n = BigInteger.valueOf((long)p*q);
+        int i = p*q;
+        n = BigInteger.valueOf(i);
         int phi = (q-1)*(p-1);
         int e;
         do {
@@ -24,11 +28,12 @@ public class RSA {
         BigInteger bigE = BigInteger.valueOf(e);
         BigInteger bigPhi = BigInteger.valueOf(phi);
         d = bigE.modInverse(bigPhi);
-        publicK = new Pair<>(n.intValue(), e);
+        publicK = new Pair<>(i, e);
     }
     public int ggT(int a, int b){
         if (a <=0 || b<=0){
-            throw new IllegalArgumentException("A und B müssen größer als 0 sein für die ggT!");
+            System.out.println("A und B müssen größer als 0 sein für die ggT!");
+            return 0;
         }
         while (b != 0){
             int r = a&b;
@@ -43,6 +48,10 @@ public class RSA {
         return bigDecoded.intValue();
     }
     public int encode (int toEncode, Pair<Integer, Integer> publicKey){
+        if (publicKey==null){
+            System.out.println("Public key cant be null!");
+            return 0;
+        }
         BigInteger bigE = BigInteger.valueOf(publicKey.getValue());
         BigInteger bigN = BigInteger.valueOf(publicKey.getKey());
         BigInteger bigToEncode = BigInteger.valueOf(toEncode);
@@ -62,7 +71,8 @@ public class RSA {
     }
     public int getPrim(int min, int max){
         if (min <=1 || max<=1 || min >= max){
-            throw new IllegalArgumentException("Arguments for getPrim has to be greater than 1 and first argument has to be less than second argument!");
+            System.out.println("Arguments for getPrim has to be greater than 1 and first argument has to be less than second argument!");
+            return 0;
         }
         Random generator = new Random();
         int randomPrim;

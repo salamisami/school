@@ -38,6 +38,10 @@ public class ClientServerApplication extends Application {
     server = new Server(port, serverEncode, serverDecode);
   }
   public String encode (Pair<Integer, Integer> publicKey, String toEncode){
+    if (publicKey == null || toEncode == null){
+      System.out.println("Public key and message can't be null!");
+      return null;
+    }
     StringBuilder result = new StringBuilder();
     RSA rsa = new RSA();
     rsa.init();
@@ -48,6 +52,10 @@ public class ClientServerApplication extends Application {
     return result.toString();
   }
   public String decode (RSA rsa, String toDecode){
+    if (rsa == null){
+      System.out.println("RSA cant be null!");
+      return null;
+    }
     StringBuilder result = new StringBuilder();
     for (int i=0; i<toDecode.length(); i++){
       if (toDecode.charAt(i) != ' '){//32 ist der Wert für ein Leerzeichen
