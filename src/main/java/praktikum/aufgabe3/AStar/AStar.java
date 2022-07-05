@@ -5,10 +5,10 @@ import praktikum.aufgabe3.graphs.Graph;
 import java.util.*;
 
 public class AStar<T> {
-    PriorityQueue <T> openList;
-    Map<T, AstarNode<T>> astarNodeMap = new HashMap<>();
-    T start;
-    Graph<T> graph;
+    private PriorityQueue <T> openList;
+    private Map<T, AstarNode<T>> astarNodeMap = new HashMap<>();
+    private T start;
+    private Graph<T> graph;
 
     private void update (Graph<T> graph, T start){
         Iterator<T> graphElements = graph.getElements();

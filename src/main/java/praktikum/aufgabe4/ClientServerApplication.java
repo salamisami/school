@@ -29,39 +29,33 @@ public class ClientServerApplication extends Application {
     RSA serverK = new RSA();
     serverK.init();
     // These operations need to be replaced by the RSA encoding/decoding
-    UnaryOperator<String> clientEncode = x -> encode(clientK.publicK, x);
+    UnaryOperator<String> clientEncode = x -> encode(serverK.publicK, x);
     UnaryOperator<String> clientDecode = x -> decode(clientK, x);
-    UnaryOperator<String> serverEncode = x -> encode(serverK.publicK, x);
+    UnaryOperator<String> serverEncode = x -> encode(clientK.publicK, x);
     UnaryOperator<String> serverDecode = x -> decode(serverK, x);
 
     client = new Client(port, hostname, clientEncode, clientDecode);
     server = new Server(port, serverEncode, serverDecode);
   }
   public String encode (Pair<Integer, Integer> publicKey, String toEncode){
-    if (publicKey == null || toEncode == null){
-      System.out.println("Public key and message can't be null!");
-      return null;
-    }
+    RSA rsa= new RSA();
     StringBuilder result = new StringBuilder();
-    RSA rsa = new RSA();
-    rsa.init();
-    for (int i=0; i<toEncode.length();i++){
+    for (int i=0; i<toEncode.length();i++){ //Iterieren durch den String, fügen ein Leerzeichen nach jedem encodeten Value.
       result.append(rsa.encode(toEncode.charAt(i),publicKey));
       result.append(" ");
     }
-    return result.toString();
+    return result.toString(); //Geben Resultat als String zurück
   }
   public String decode (RSA rsa, String toDecode){
-    if (rsa == null){
-      System.out.println("RSA cant be null!");
-      return null;
-    }
-    StringBuilder result = new StringBuilder();
+    StringBuilder result = new StringBuilder(); //Resultat init
     for (int i=0; i<toDecode.length(); i++){
-      if (toDecode.charAt(i) != ' '){//32 ist der Wert für ein Leerzeichen
-        char c = toDecode.charAt(i);
-        result.append(rsa.decode(c));
+      StringBuilder builderZahl=new StringBuilder(); //"zwischen Variable" für die current Number to decode
+      while (toDecode.charAt(i) != ' ' && i<toDecode.length()){//Solange der jetzige Char kein Leerzeichen ist fügen wir diesen unserer zwischenvariable hinzu
+        builderZahl.append(toDecode.charAt(i));
+        i++;
       }
+      int decodeMe = Integer.parseInt(builderZahl.toString());
+      result.append((char)rsa.decode(decodeMe));
     }
     return result.toString();
   }

@@ -13,22 +13,24 @@ public class RSA {
         init();
     }
     public void init(){
-        int p = getPrim(50, 150);
+        int p = getPrim(50, 150);//Primzahlen P und Q bekommen
         int q = getPrim(50, 150);
         while(p == q){ // Wenn die beiden gleich sind, finde eine andere Primzahl für p.
             p = getPrim(50, 150);
         }
-        int i = p*q;
-        n = BigInteger.valueOf(i);
+        //n berechnen
+        n = BigInteger.valueOf(p*q);
+        //Phi berechnen
         int phi = (q-1)*(p-1);
         int e;
         do {
-            e = getPrim(phi,(int) (1.5*phi));
+            //Primzahl e berechnen bis wir einen teilerfremden Zahl zu phi haben
+            e = getPrim(phi,(int) (1.5*phi));//
         } while(ggT(e, phi) != 1);
         BigInteger bigE = BigInteger.valueOf(e);
         BigInteger bigPhi = BigInteger.valueOf(phi);
         d = bigE.modInverse(bigPhi);
-        publicK = new Pair<>(i, e);
+        publicK = new Pair<>(n.intValue(), e);
     }
     public int ggT(int a, int b){
         if (a <=0 || b<=0){
@@ -36,7 +38,7 @@ public class RSA {
             return 0;
         }
         while (b != 0){
-            int r = a&b;
+            int r = a%b;
             a = b;
             b=r;
         }

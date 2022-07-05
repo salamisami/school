@@ -81,9 +81,6 @@ public class Smelloscope extends Application {
    * This is the callback method which delivers the path from start to target using graph shortest path search
    */
   protected List<Cell> getPath(Cell start, Cell target) {
-    // Dummy solution: uses neighbor-cell instead of target cell - replace with A*-path
-    // Insert your solution here
-   /* myAstarAlgo(Graph myGraph, startWerte, targetWerte, LinkedList results);*/
     Graph graph = new GraphImpl<Cell>();
     for (Iterator<Cell> mapCellIterator = map.getCellIterator(); mapCellIterator.hasNext(); ) {
       Cell cell = mapCellIterator.next();
@@ -101,8 +98,6 @@ public class Smelloscope extends Application {
         }
       }
     }
-    /*GraphMapMaker graphMapMaker = new GraphMapMaker(this.map, graph);
-    Graph graphMap = graphMapMaker.transferMapGraph();*/
     AStar<Cell> aStar = new AStar<>();
     Heuristik<Cell> heuristik = new Heuristik<Cell>() {
       @Override
