@@ -2,7 +2,7 @@ package praktikum.aufgabe3.graphs;
 
 import java.util.*;
 
-public class GraphImpl<T> implements Graph {
+public class GraphImpl<T> implements Graph<T> {
 
   private Map<T, HashMap<T, Float>> adjacencyList;
 
@@ -11,7 +11,7 @@ public class GraphImpl<T> implements Graph {
   }
 
   @Override
-  public void addElementAsNode(Object element) {
+  public void addElementAsNode(T  element) {
     if (element == null) {
       System.out.println("Can't add an object that is null!");
       return;
@@ -56,7 +56,7 @@ public class GraphImpl<T> implements Graph {
   }
 
   @Override
-  public Set getNeighbors(Object element) {
+  public Set getNeighbors(T element) {
     HashMap<T, Float> neighbors = adjacencyList.get(element);
     if (neighbors != null) {
       Set<T> neighborSet = new HashSet<T>();
@@ -70,7 +70,7 @@ public class GraphImpl<T> implements Graph {
   }
 
   @Override
-  public float getEdgeWeight(Object from, Object to) {
+  public float getEdgeWeight(T from, T to) {
     Set neighbors = this.getNeighbors(from);
     float result;
     if (neighbors.contains(to)) {

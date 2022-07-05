@@ -1,13 +1,13 @@
 package praktikum.aufgabe3;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import praktikum.aufgabe3.AStar.AStar;
+import praktikum.aufgabe3.AStar.Heuristik;
 import praktikum.aufgabe3.graphs.Graph;
 import praktikum.aufgabe3.graphs.GraphImpl;
 import praktikum.aufgabe3.graphs.GraphMapMaker;
@@ -85,10 +85,32 @@ public class Smelloscope extends Application {
     // Insert your solution here
    /* myAstarAlgo(Graph myGraph, startWerte, targetWerte, LinkedList results);*/
     Graph graph = new GraphImpl<Cell>();
-    GraphMapMaker graphMapMaker = new GraphMapMaker(this.map, graph);
-    Graph graphMap = graphMapMaker.transferMapGraph();
-    Cell end = start.getNeighborCell(Constants.Direction.HOUR_0);
-    return end != null ? Arrays.asList(start, end) : new ArrayList<>();
+    for (Iterator<Cell> mapCellIterator = map.getCellIterator(); mapCellIterator.hasNext(); ) {
+      Cell cell = mapCellIterator.next();
+      if (!cell.isOccupied()) {
+        graph.addElementAsNode(cell);
+      }
+    }
+    Iterator<Cell> cellIterator=graph.getElements();
+    while(cellIterator.hasNext()){
+      Cell cell = cellIterator.next();
+      for (Constants.Direction direction : Constants.Direction.values()) {
+        Cell neighborCell = cell.getNeighborCell(direction);
+        if (!(neighborCell == null || neighborCell.isOccupied())) {
+          graph.addEdge(cell, neighborCell,cell.getDistanceTo(neighborCell), false);
+        }
+      }
+    }
+    /*GraphMapMaker graphMapMaker = new GraphMapMaker(this.map, graph);
+    Graph graphMap = graphMapMaker.transferMapGraph();*/
+    AStar<Cell> aStar = new AStar<>();
+    Heuristik<Cell> heuristik = new Heuristik<Cell>() {
+      @Override
+      public Float getHeur(Cell node) {
+        return node.getSmell();
+      }
+    };
+    return aStar.aStarCalc(graph,start,target,heuristik);
   }
 
   public static void main(String[] args) {
